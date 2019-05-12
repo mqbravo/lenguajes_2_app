@@ -1,12 +1,14 @@
 package com.lenguajes.recetas_bombur.home.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 
 import java.util.ArrayList;
@@ -50,5 +52,10 @@ public class HomeActivity extends AppCompatActivity {
         recipes.add(new Recipe(40, "Pizza mozzarella", "Italiana", null, null, "https://www.laespanolaaceites.com/uploads/recetas/fotos/pizza-con-tomate-albahaca-y-mozzarella.jpg"));
 
         return recipes;
+    }
+
+    public void pb(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
