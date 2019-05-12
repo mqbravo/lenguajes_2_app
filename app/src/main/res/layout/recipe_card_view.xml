@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/postCard"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    cardview:cardCornerRadius="4dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/image_placeholder"
+            android:scaleType="centerCrop"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/colorPrimaryDarkAlpha"
+            android:layout_gravity="bottom"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            >
+
+            <TextView
+                android:id="@+id/recipeCard_recipeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:text="Lomito asado"
+                android:textColor="@color/appWhite"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/recipeCard_recipeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text="Tipo de comida: "
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginStart="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeName"/>
+
+            <TextView
+                android:id="@+id/recipeCard_recipeType_Detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text="China"
+                android:textColor="@color/appWhite"
+                android:layout_marginStart="0dp"
+                app:layout_constraintStart_toEndOf="@id/recipeCard_recipeType"
+                app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeName"/>
+
+
+            <TextView
+                android:id="@+id/recipeCard_recipeDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text="Tiempo aproximado: "
+                android:textColor="@color/colorPrimaryLight"
+                android:layout_marginStart="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeType"/>
+
+            <TextView
+                android:id="@+id/recipeCard_recipeDuration_Detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text="62 min"
+                android:textColor="@color/appWhite"
+                android:layout_marginStart="0dp"
+                app:layout_constraintStart_toEndOf="@id/recipeCard_recipeDuration"
+                app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeType"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>
