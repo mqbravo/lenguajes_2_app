@@ -8,7 +8,10 @@
     tools:context=".recipes.view.CreateRecipeActivity"
     android:background="@color/colorPrimaryDark">
 
+    <include layout="@layout/actionbar_toolbar"/>
+
     <ScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -186,11 +189,14 @@
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
                 android:lines="6"
+                android:hint="@string/steps_here"
+                android:textColorHint="@color/colorPrimaryLight"
                 android:gravity="top|start"
                 android:scrollHorizontally="false"
                 android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginEnd="@dimen/margin_large"
                 android:layout_marginTop="@dimen/margin_small"
+                android:textColor="@color/appWhite"
                 app:layout_constraintTop_toBottomOf="@id/createRecipe_Steps"
                 />
 

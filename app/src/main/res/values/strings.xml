@@ -20,4 +20,6 @@
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
     <string name="add_image">Add image</string>
+    <string name="log_out">Log out</string>
+    <string name="steps_here">Detail the steps here!</string>
 </resources>

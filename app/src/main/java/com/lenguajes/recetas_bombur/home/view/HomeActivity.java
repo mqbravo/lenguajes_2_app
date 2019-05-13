@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.view.CreateRecipeActivity;
@@ -25,6 +27,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         mRecipesRecyclerView = findViewById(R.id.home_recipesRecyclerView);
+
+        ToolbarManager.setToolbar(this, "Home", false, R.id.toolbar);
 
         setRecipesRecyclerView();
     }
@@ -55,8 +59,14 @@ public class HomeActivity extends AppCompatActivity {
         return recipes;
     }
 
-    public void pb(View view) {
+    public void newRecipe(View view) {
         Intent intent = new Intent(this, CreateRecipeActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_toolbar_menu, menu);
+        return true;
     }
 }

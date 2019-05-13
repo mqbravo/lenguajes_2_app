@@ -6,11 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".home.view.HomeActivity">
 
+    <include layout="@layout/actionbar_toolbar"/>
+
     <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:weightSum="10">
 
         <android.support.v7.widget.AppCompatTextView
@@ -44,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_medium"
-        android:onClick="pb"
+        android:onClick="newRecipe"
         android:src="@drawable/ic_plusx24" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -101,6 +101,7 @@
         android:text="@string/log_in"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/hint_text_size"
+        android:onClick="openHome"
         app:layout_constraintTop_toBottomOf="@+id/login_PasswordTextInputLayout"/>
 
 
