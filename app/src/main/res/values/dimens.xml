@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="title_text_size">40sp</dimen>
+    <dimen name="recipe_card_height">260dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="recipe_card_info_height">100dp</dimen>
+    <dimen name="card_title_text_size">28sp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="card_info_text_size">17sp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="space_separator">2dp</dimen>
+    <dimen name="title_margin_top">100dp</dimen>
+    <dimen name="login_tittle_size">60sp</dimen>
+    <dimen name="hint_text_size">20sp</dimen>
+    <dimen name="text_editor_height">300sp</dimen>
+    <dimen name="text_size_small">18sp</dimen>
+    <dimen name="space_separator_large">4dp</dimen>
+</resources>

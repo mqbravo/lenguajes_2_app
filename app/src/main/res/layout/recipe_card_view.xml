@@ -4,8 +4,8 @@
 
     android:id="@+id/postCard"
     android:layout_width="match_parent"
-    android:layout_height="260dp"
-    cardview:cardCornerRadius="4dp">
+    android:layout_height="@dimen/recipe_card_height"
+    cardview:cardCornerRadius="@dimen/card_corner_radius">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/recipe_card_info_height"
             android:background="@color/colorPrimaryDarkAlpha"
             android:layout_gravity="bottom"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,10 +30,10 @@
                 android:id="@+id/recipeCard_recipeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:text="Lomito asado"
+                android:textSize="@dimen/card_title_text_size"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:text="@string/lorem_ipsum"
                 android:textColor="@color/appWhite"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,10 +43,10 @@
                 android:id="@+id/recipeCard_recipeType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="Tipo de comida: "
+                android:textSize="@dimen/card_info_text_size"
+                android:text="@string/food_type"
                 android:textColor="@color/colorPrimaryLight"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="@dimen/margin_large"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeName"/>
 
@@ -54,10 +54,10 @@
                 android:id="@+id/recipeCard_recipeType_Detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="China"
+                android:textSize="@dimen/card_info_text_size"
+                android:text="@string/lorem_ipsum"
                 android:textColor="@color/appWhite"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="@dimen/space_separator"
                 app:layout_constraintStart_toEndOf="@id/recipeCard_recipeType"
                 app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeName"/>
 
@@ -66,10 +66,10 @@
                 android:id="@+id/recipeCard_recipeDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="Tiempo aproximado: "
+                android:textSize="@dimen/card_info_text_size"
+                android:text="@string/estimated_time"
                 android:textColor="@color/colorPrimaryLight"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="@dimen/margin_large"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeType"/>
 
@@ -77,10 +77,10 @@
                 android:id="@+id/recipeCard_recipeDuration_Detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="62 min"
+                android:textSize="@dimen/card_info_text_size"
+                android:text="@string/lorem_ipsum"
                 android:textColor="@color/appWhite"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="@dimen/space_separator"
                 app:layout_constraintStart_toEndOf="@id/recipeCard_recipeDuration"
                 app:layout_constraintTop_toBottomOf="@+id/recipeCard_recipeType"/>
 

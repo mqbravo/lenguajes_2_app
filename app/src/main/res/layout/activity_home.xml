@@ -17,11 +17,11 @@
             android:id="@+id/home_Tittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_medium"
             android:text="Recetas Bombur"
             android:textColor="@color/appWhite"
             android:layout_gravity="center"
-            android:textSize="40sp"
+            android:textSize="@dimen/title_text_size"
             android:layout_weight="0.5"
             android:fontFamily="@font/ringbearer"/>
 
@@ -30,7 +30,7 @@
             android:id="@+id/home_recipesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_medium"
             android:layout_weight="9.5">
 
         </android.support.v7.widget.RecyclerView>
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/margin_medium"
         android:onClick="pb"
         android:src="@drawable/ic_plusx24" />
 

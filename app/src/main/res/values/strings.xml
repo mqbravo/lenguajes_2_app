@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Recetas_Bombur</string>
+    <string name="lorem_ipsum">Lorem ipsum</string>
+    <string name="food_type">Food type: </string>
+    <string name="estimated_time">Estimated time:</string>
+    <string name="login_tittle">Recetas Bombur</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="or_create_one">Or create one </string>
+    <string name="here">here</string>
 </resources>
