@@ -3,10 +3,21 @@
     <string name="lorem_ipsum">Lorem ipsum</string>
     <string name="food_type">Food type: </string>
     <string name="estimated_time">Estimated time:</string>
-    <string name="login_tittle">Recetas Bombur</string>
+    <string name="tittle">Recetas Bombur</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="log_in">Log in</string>
     <string name="or_create_one">Or create one </string>
     <string name="here">here</string>
+    <string name="new_recipe">New recipe</string>
+    <string name="name">Name</string>
+    <string name="type">Type</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="new_ingredient">New ingredient</string>
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="steps">Steps</string>
+    <string name="images">Images</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_image">Add image</string>
 </resources>

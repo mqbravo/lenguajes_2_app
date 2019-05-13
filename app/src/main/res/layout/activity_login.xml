@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/title_margin_top"
         android:fontFamily="@font/ringbearer"
-        android:text="@string/login_tittle"
+        android:text="@string/tittle"
         android:textColor="@color/colorPrimaryLight"
         android:textSize="@dimen/login_tittle_size"
         android:gravity="center"

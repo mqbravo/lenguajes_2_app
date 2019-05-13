@@ -10,6 +10,7 @@ import android.view.View;
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
+import com.lenguajes.recetas_bombur.recipes.view.CreateRecipeActivity;
 
 import java.util.ArrayList;
 
@@ -55,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void pb(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, CreateRecipeActivity.class);
         startActivity(intent);
     }
 }

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            android:text="Recetas Bombur"
+            android:text="@string/tittle"
             android:textColor="@color/appWhite"
             android:layout_gravity="center"
             android:textSize="@dimen/title_text_size"
