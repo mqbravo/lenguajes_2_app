@@ -37,8 +37,10 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_UsernameTextInputLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_xlarge"
+        android:layout_marginEnd="@dimen/margin_xlarge"
         android:theme="@style/EditTextWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +48,7 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/login_UsernameTextInput"
-            android:layout_width="@dimen/text_editor_height"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/hint_text_size"
             android:hint="@string/username"
@@ -71,8 +73,10 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_PasswordTextInputLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_xlarge"
+        android:layout_marginEnd="@dimen/margin_xlarge"
         android:theme="@style/EditTextWhite"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/appWhite"
@@ -82,7 +86,7 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/login_PasswordTextInput"
-            android:layout_width="@dimen/text_editor_height"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/hint_text_size"
             android:hint="@string/password"
@@ -127,6 +131,7 @@
             android:textColor="@color/colorAccent"
             android:layout_marginStart="@dimen/space_separator_large"
             android:textSize="@dimen/text_size_small"
+            android:onClick="openCreateUser"
             />
 
     </LinearLayout>

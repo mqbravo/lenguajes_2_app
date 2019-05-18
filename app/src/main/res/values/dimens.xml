@@ -9,11 +9,12 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="card_info_text_size">17sp</dimen>
     <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_xlarge">64dp</dimen>
     <dimen name="space_separator">2dp</dimen>
     <dimen name="title_margin_top">100dp</dimen>
     <dimen name="login_tittle_size">60sp</dimen>
     <dimen name="hint_text_size">20sp</dimen>
-    <dimen name="text_editor_height">300sp</dimen>
+    <dimen name="text_editor_width">300sp</dimen>
     <dimen name="text_size_small">18sp</dimen>
     <dimen name="space_separator_large">4dp</dimen>
 </resources>

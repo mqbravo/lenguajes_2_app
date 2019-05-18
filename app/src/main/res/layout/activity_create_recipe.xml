@@ -48,15 +48,17 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/createRecipe_NameTextInputLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
                 android:theme="@style/EditTextWhite"
                 app:layout_constraintStart_toStartOf="@+id/createRecipe_Name"
                 app:layout_constraintTop_toBottomOf="@+id/createRecipe_Name">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/createRecipe_NameTextInput"
-                    android:layout_width="@dimen/text_editor_height"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/hint_text_size"
                     android:hint="@string/name"
@@ -81,15 +83,17 @@
             <!-- TODO esto será un combo box-->
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/createRecipe_TypeTextInputLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
                 android:theme="@style/EditTextWhite"
                 app:layout_constraintStart_toStartOf="@+id/createRecipe_Type"
                 app:layout_constraintTop_toBottomOf="@+id/createRecipe_Type">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/createRecipe_TypeTextInput"
-                    android:layout_width="@dimen/text_editor_height"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/hint_text_size"
                     android:hint="@string/type"
@@ -137,8 +141,10 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/createRecipe_NewIngredientTextInputLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
                 android:theme="@style/EditTextWhite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +152,7 @@
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/createRecipe_NewTextInput"
-                    android:layout_width="@dimen/text_editor_height"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/hint_text_size"
                     android:hint="@string/new_ingredient"

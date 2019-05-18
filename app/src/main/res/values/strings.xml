@@ -22,4 +22,6 @@
     <string name="add_image">Add image</string>
     <string name="log_out">Log out</string>
     <string name="steps_here">Detail the steps here!</string>
+    <string name="new_user">New user</string>
+    <string name="email">Email</string>
 </resources>
