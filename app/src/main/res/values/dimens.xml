@@ -17,4 +17,6 @@
     <dimen name="text_editor_width">300sp</dimen>
     <dimen name="text_size_small">18sp</dimen>
     <dimen name="space_separator_large">4dp</dimen>
+    <dimen name="recyclerview_medium_height">160dp</dimen>
+    <dimen name="spacer">60dp</dimen>
 </resources>

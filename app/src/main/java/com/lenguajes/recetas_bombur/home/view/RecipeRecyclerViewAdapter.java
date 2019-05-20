@@ -1,6 +1,7 @@
 package com.lenguajes.recetas_bombur.home.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
+import com.lenguajes.recetas_bombur.recipes.view.RecipeDetailActivity;
 
 import java.util.ArrayList;
 
@@ -48,6 +50,14 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         recipeViewHolder.nameCard.setText(recipe.getName());
         recipeViewHolder.typeCard.setText(recipe.getType());
         Glide.with(activity).load(recipe.getImageURL()).into(recipeViewHolder.imageCard);
+
+        recipeViewHolder.imageCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, RecipeDetailActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
     }
 

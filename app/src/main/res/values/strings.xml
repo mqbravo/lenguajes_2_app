@@ -24,4 +24,5 @@
     <string name="steps_here">Detail the steps here!</string>
     <string name="new_user">New user</string>
     <string name="email">Email</string>
+    <string name="lorem_ipsum_large">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat consectetur leo quis vehicula. Sed diam ante, dapibus in condimentum eu, luctus eu justo. Vivamus justo erat, luctus ac odio id, imperdiet pellentesque nisl. Suspendisse potenti. Proin vehicula nisl lectus, et egestas nisi ullamcorper ac. Maecenas lacus mi, iaculis et diam vel, lacinia dignissim massa. Donec scelerisque ante odio, in semper felis placerat ultrices.</string>
 </resources>
