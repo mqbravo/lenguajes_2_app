@@ -188,6 +188,7 @@
                     android:textColor="@color/appWhite"
                     android:background="@color/appRed"
                     android:layout_weight="5"
+                    android:onClick="cancelNewUser"
                     />
 
                 <Button
