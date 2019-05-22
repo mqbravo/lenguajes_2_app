@@ -249,7 +249,8 @@
                     android:text="@string/add_image"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:onClick="addImage"/>
             </LinearLayout>
 
 
