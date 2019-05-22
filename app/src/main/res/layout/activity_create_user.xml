@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".users.view.CreateUserActivity"
+    android:background="@color/colorPrimaryDark">
+
+    <include layout="@layout/actionbar_toolbar"/>
+
+    <ScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/createUser_tittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_user"
+                android:textSize="@dimen/title_text_size"
+                android:layout_marginTop="@dimen/margin_large"
+                android:textColor="@color/appWhite"
+                android:fontFamily="@font/ringbearer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            
+            
+            <TextView
+                android:id="@+id/createUser_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="@dimen/hint_text_size"
+                android:textColor="@color/appWhite"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_tittle"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/createUser_NameTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/EditTextWhite"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
+                app:layout_constraintStart_toStartOf="@+id/createUser_Name"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_Name">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/createUser_NameTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hint_text_size"
+                    android:hint="@string/name"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/createUser_Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textSize="@dimen/hint_text_size"
+                android:textColor="@color/appWhite"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_NameTextInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/createUser_EmailTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:theme="@style/EditTextWhite"
+                app:layout_constraintStart_toStartOf="@+id/createUser_Email"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_Email">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/createUser_EmailTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hint_text_size"
+                    android:hint="@string/email"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/createUser_Username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textSize="@dimen/hint_text_size"
+                android:textColor="@color/appWhite"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_EmailTextInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/createUser_UsernameTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:theme="@style/EditTextWhite"
+                app:layout_constraintStart_toStartOf="@+id/createUser_Username"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_Username">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/createUser_UsernameTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hint_text_size"
+                    android:hint="@string/username"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/createUser_Password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textSize="@dimen/hint_text_size"
+                android:textColor="@color/appWhite"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_UsernameTextInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/createUser_PasswordTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/EditTextWhite"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/appWhite"
+                app:layout_constraintStart_toStartOf="@+id/createUser_Password"
+                app:layout_constraintTop_toBottomOf="@+id/createUser_Password">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/createUser_PasswordTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/hint_text_size"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:layout_constraintTop_toBottomOf="@id/createUser_PasswordTextInputLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:weightSum="10"
+                >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:textColor="@color/appWhite"
+                    android:background="@color/appRed"
+                    android:layout_weight="5"
+                    android:onClick="cancelNewUser"
+                    />
+
+                <Button
+                    android:id="@+id/createUser_CreateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create"
+                    android:textColor="@color/appWhite"
+                    android:background="@color/lightGreen"
+                    android:layout_weight="5"
+                    />
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

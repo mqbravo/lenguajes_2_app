@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LoginActivity"
+    android:background="@color/colorPrimaryDark">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:fontFamily="@font/ringbearer"
+        android:text="@string/tittle"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="@dimen/login_tittle_size"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/login_Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="@string/username"
+        android:textColor="@color/appWhite"
+        android:textSize="@dimen/hint_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_UsernameTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_xlarge"
+        android:layout_marginEnd="@dimen/margin_xlarge"
+        android:theme="@style/EditTextWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_Username">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_UsernameTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/hint_text_size"
+            android:hint="@string/username"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/login_Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/hint_text_size"
+        android:text="@string/password"
+        android:textColor="@color/appWhite"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_UsernameTextInputLayout"
+        />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_PasswordTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_xlarge"
+        android:layout_marginEnd="@dimen/margin_xlarge"
+        android:theme="@style/EditTextWhite"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/appWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_Password">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_PasswordTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/hint_text_size"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/login_LoginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:background="@color/colorPrimaryLight"
+        android:text="@string/log_in"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/hint_text_size"
+        android:onClick="openHome"
+        app:layout_constraintTop_toBottomOf="@+id/login_PasswordTextInputLayout"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_large"
+        app:layout_constraintTop_toBottomOf="@id/login_LoginButton"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/login_OrCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or_create_one"
+            android:textColor="@color/appWhite"
+            android:textSize="@dimen/text_size_small"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/here"
+            android:textColor="@color/colorAccent"
+            android:layout_marginStart="@dimen/space_separator_large"
+            android:textSize="@dimen/text_size_small"
+            android:onClick="openCreateUser"
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
