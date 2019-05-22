@@ -2,23 +2,35 @@ package com.lenguajes.recetas_bombur.recipes.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.activitymanagement.DialogManager;
 import com.lenguajes.recetas_bombur.activitymanagement.IntentUtils;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.permissions.PermissionsManager;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -28,7 +40,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private AlertDialog exitDialog;
     private RecyclerView mImagesRecyclerView;
     private ArrayList<String> mImagesPaths;
-
+    private final StorageReference storageReference = RecetasBomburApplication.getStorageReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +54,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
         this.mImagesPaths = new ArrayList<>();
 
         setUpImagesRecycler();
-
     }
 
 
@@ -112,11 +123,39 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
                 File file = PathUtil.getFileFromUri(this, imageUri);
 
-                if (file.exists()) {
-                    ImageRecyclerViewAdapter adapter = (ImageRecyclerViewAdapter) mImagesRecyclerView.getAdapter();
+                if (file.exists())
                     mImagesPaths.add(file.getAbsolutePath());
-                }
+
             }
         }
+    }
+
+    public void createNewRecipe(View view) {
+        //TODO Change this to upload all images on the array
+        String imagePath = mImagesPaths.get(0);
+
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        byte[] imageBytes = baos.toByteArray();
+        String imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+
+        StorageReference newImageReference = storageReference.child("test/" + imageName);
+
+        UploadTask uploadTask = newImageReference.putBytes(imageBytes);
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+
+            result.addOnSuccessListener(uri -> {
+                String imageUrl = uri.toString();
+                Log.d("CreateRecipeActivity", "Subida completada en: " + imageUrl);
+                finish();
+            });
+
+        });
+
+        uploadTask.addOnFailureListener(e -> Log.d("CreateRecipeActivity", "Error en la subida: " + e.getMessage()));
+
     }
 }

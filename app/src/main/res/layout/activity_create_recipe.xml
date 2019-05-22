@@ -262,6 +262,7 @@
                 android:textColor="@color/appWhite"
                 android:background="@color/colorPrimary"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:onClick="createNewRecipe"
                 app:layout_constraintTop_toBottomOf="@id/createRecipe_ImagesLinearLayout"
             />
 
