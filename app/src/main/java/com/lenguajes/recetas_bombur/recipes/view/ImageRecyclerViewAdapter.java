@@ -1,6 +1,7 @@
 package com.lenguajes.recetas_bombur.recipes.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +49,11 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
         Glide.with(activity).load(path).placeholder(progressDrawable).into(imageViewHolder.imageCard);
 
+        imageViewHolder.imageCard.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, ExpandedImageActivity.class);
+            intent.putExtra("path", path);
+            activity.startActivity(intent);
+        });
     }
 
     @Override
