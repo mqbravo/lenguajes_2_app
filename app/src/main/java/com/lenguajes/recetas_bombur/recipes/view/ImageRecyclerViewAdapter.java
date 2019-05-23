@@ -2,6 +2,7 @@ package com.lenguajes.recetas_bombur.recipes.view;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +41,12 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         final String path = mPaths.get(i);
 
+        CircularProgressDrawable progressDrawable = new CircularProgressDrawable(activity);
+        progressDrawable.setCenterRadius(50f);
+        progressDrawable.setStrokeWidth(8f);
+        progressDrawable.start();
 
-        Glide.with(activity).load(path).into(imageViewHolder.imageCard);
+        Glide.with(activity).load(path).placeholder(progressDrawable).into(imageViewHolder.imageCard);
 
     }
 
