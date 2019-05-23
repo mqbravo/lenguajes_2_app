@@ -1,11 +1,12 @@
 package com.lenguajes.recetas_bombur.recipes.view;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +16,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lenguajes.recetas_bombur.R;
@@ -41,6 +40,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private RecyclerView mImagesRecyclerView;
     private ArrayList<String> mImagesPaths;
     private final StorageReference storageReference = RecetasBomburApplication.getStorageReference();
+    private ProgressDialog uploadDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
         this.mImagesPaths = new ArrayList<>();
 
         setUpImagesRecycler();
+
+        uploadDialog = new ProgressDialog(this);
+        uploadDialog.setCancelable(false);
+        uploadDialog.setTitle(getString(R.string.uploading_recipe));
+        uploadDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     }
 
 
@@ -74,6 +79,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         mImagesRecyclerView.setAdapter(imageAdapter);
 
     }
+
 
     private void setUpExitDialog(){
         exitDialog = DialogManager.createYesNoDialog(this,
@@ -130,6 +136,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         }
     }
 
+    //TODO delegate logic to the Interactor
     public void createNewRecipe(View view) {
         //TODO Change this to upload all images on the array
         String imagePath = mImagesPaths.get(0);
@@ -141,21 +148,33 @@ public class CreateRecipeActivity extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         String imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
 
-        StorageReference newImageReference = storageReference.child("test/" + imageName);
+        StorageReference newImageReference = storageReference.child("test1/" + imageName);
 
         UploadTask uploadTask = newImageReference.putBytes(imageBytes);
+
+        uploadDialog.show();
+
+        uploadTask.addOnProgressListener(this, taskSnapshot -> {
+            double percentage = taskSnapshot.getBytesTransferred() * 100 / (double)taskSnapshot.getTotalByteCount();
+            uploadDialog.setProgress((int)percentage);
+        });
+
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
 
             result.addOnSuccessListener(uri -> {
                 String imageUrl = uri.toString();
                 Log.d("CreateRecipeActivity", "Subida completada en: " + imageUrl);
+                uploadDialog.dismiss();
                 finish();
             });
 
         });
 
-        uploadTask.addOnFailureListener(e -> Log.d("CreateRecipeActivity", "Error en la subida: " + e.getMessage()));
+        uploadTask.addOnFailureListener(e -> {
+            Log.d("CreateRecipeActivity", "Error en la subida: " + e.getMessage());
+            uploadDialog.dismiss();
+        });
 
     }
 }
