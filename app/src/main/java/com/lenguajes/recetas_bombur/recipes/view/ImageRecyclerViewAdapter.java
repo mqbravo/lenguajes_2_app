@@ -9,30 +9,30 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.lenguajes.recetas_bombur.R;
 
 import java.util.ArrayList;
 
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder>{
 
     private ArrayList<String> mPaths;
-    private int resource;
+    private int cardLayout;
+    private int imageViewID;
     private Activity activity;
 
-
-    public ImageRecyclerViewAdapter(ArrayList<String> mPaths, int resource, Activity activity) {
+    public ImageRecyclerViewAdapter(ArrayList<String> mPaths, int cardLayout, int imageViewID, Activity activity) {
         this.mPaths = mPaths;
-        this.resource = resource;
+        this.cardLayout = cardLayout;
         this.activity = activity;
+        this.imageViewID = imageViewID;
     }
 
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //Gets the view from the XML layout
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(resource, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(cardLayout, viewGroup, false);
 
-        //Pass the view with the card resource
+        //Pass the view with the card cardLayout
         return new ImageRecyclerViewAdapter.ImageViewHolder(view);
     }
 
@@ -56,12 +56,8 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
         ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageCard = itemView.findViewById(R.id.smallImage_card);
+            imageCard = itemView.findViewById(imageViewID);
         }
     }
 
-
-    public void addItem(String item){
-        mPaths.add(item);
-    }
 }

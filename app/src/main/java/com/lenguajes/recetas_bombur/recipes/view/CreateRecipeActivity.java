@@ -68,7 +68,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         //Set its adapter by creating a new adapter from the CardView layout resource
         ImageRecyclerViewAdapter imageAdapter = new ImageRecyclerViewAdapter(mImagesPaths,
-                R.layout.small_image_card_view, this);
+                R.layout.small_image_card_view, R.id.smallImage_card, this);
 
 
         mImagesRecyclerView.setAdapter(imageAdapter);
