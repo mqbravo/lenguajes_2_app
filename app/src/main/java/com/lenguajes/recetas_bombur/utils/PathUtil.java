@@ -108,4 +108,10 @@ public class PathUtil {
 
         return file;
     }
+
+    public static String getFileNameFromPath(String path, boolean withExtension){
+        int lastIndex = withExtension ? path.length() : path.lastIndexOf('.') - 1;
+
+        return path.substring(path.lastIndexOf('/') + 1, lastIndex);
+    }
 }

@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.StorageReference;
@@ -25,20 +26,22 @@ import com.lenguajes.recetas_bombur.activitymanagement.DialogManager;
 import com.lenguajes.recetas_bombur.activitymanagement.IntentUtils;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.permissions.PermissionsManager;
+import com.lenguajes.recetas_bombur.utils.FirebaseUploadUtil;
+import com.lenguajes.recetas_bombur.utils.ImageUtil;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
 public class CreateRecipeActivity extends AppCompatActivity {
 
+    private static final String TAG = "CreateRecipeActivityTAG";
     private static final int PICK_IMAGE_REQUEST = 1;
     private AlertDialog exitDialog;
     private RecyclerView mImagesRecyclerView;
     private ArrayList<String> mImagesPaths;
-    private final StorageReference storageReference = RecetasBomburApplication.getStorageReference();
-    private ProgressDialog uploadDialog;
+    private ProgressDialog mUploadDialog;
+    private float mCurrentUploadProgress = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,10 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         setUpImagesRecycler();
 
-        uploadDialog = new ProgressDialog(this);
-        uploadDialog.setCancelable(false);
-        uploadDialog.setTitle(getString(R.string.uploading_recipe));
-        uploadDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mUploadDialog = new ProgressDialog(this);
+        mUploadDialog.setCancelable(false);
+        mUploadDialog.setTitle(getString(R.string.uploading_recipe));
+        mUploadDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     }
 
 
@@ -136,43 +139,61 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     //TODO delegate logic to the Interactor
     public void createNewRecipe(View view) {
-        //TODO Change this to upload all images on the array
-        String imagePath = mImagesPaths.get(0);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        //The percentage each task takes, to get 100
+        float individualTaskPercentage = 100/(float)mImagesPaths.size();
 
-        byte[] imageBytes = baos.toByteArray();
-        String imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+        mUploadDialog.show();
 
-        StorageReference newImageReference = storageReference.child("test1/" + imageName);
+        for (String path : mImagesPaths) {
 
-        UploadTask uploadTask = newImageReference.putBytes(imageBytes);
+            //Create a bitmap from the image
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            
+            //Compress bitmap and store the image bytes
+            byte[] imageBytes = ImageUtil.getBytesFromBitmap(bitmap, Bitmap.CompressFormat.JPEG, 100);
 
-        uploadDialog.show();
+            //Get the name with the extension
+            String imageName = PathUtil.getFileNameFromPath(path, true);
 
-        uploadTask.addOnProgressListener(this, taskSnapshot -> {
-            double percentage = taskSnapshot.getBytesTransferred() * 100 / (double)taskSnapshot.getTotalByteCount();
-            uploadDialog.setProgress((int)percentage);
-        });
+            //Begin the image upload
+            UploadTask uploadTask = FirebaseUploadUtil.uploadToFirebase("test", imageName, imageBytes);
+            
+            uploadTask.addOnProgressListener(this, taskSnapshot -> {
+                double taskProgress = taskSnapshot.getBytesTransferred() * 100 / (double) taskSnapshot.getTotalByteCount();
+                double percentageInTotal = taskProgress * individualTaskPercentage / 100;
 
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-            Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+                mCurrentUploadProgress += percentageInTotal;
 
-            result.addOnSuccessListener(uri -> {
-                String imageUrl = uri.toString();
-                Log.d("CreateRecipeActivity", "Subida completada en: " + imageUrl);
-                uploadDialog.dismiss();
-                finish();
+                mUploadDialog.setProgress((int) mCurrentUploadProgress);
             });
 
-        });
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
+                Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
 
-        uploadTask.addOnFailureListener(e -> {
-            Log.d("CreateRecipeActivity", "Error en la subida: " + e.getMessage());
-            uploadDialog.dismiss();
-        });
+                result.addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    Log.d(TAG, getString(R.string.upload_completed) + imageUrl);
 
+                    //The last is finishing, subtract 0.1 to ensure is the last one
+                    if(mCurrentUploadProgress >= 100f - 0.1f){
+                        mUploadDialog.dismiss();
+                        finish();
+                    }
+                });
+
+            });
+
+            uploadTask.addOnFailureListener(e -> {
+                Log.d(TAG, getString(R.string.error_image_upload) + e.getMessage());
+                mUploadDialog.dismiss();
+                
+                //Set the progress to 0 again
+                mCurrentUploadProgress = 0f;
+                mUploadDialog.setProgress((int)mCurrentUploadProgress);
+                
+                Toast.makeText(this, getString(R.string.error_uploading_recipe), Toast.LENGTH_LONG).show();
+            });
+        }
     }
 }

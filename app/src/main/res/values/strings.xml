@@ -31,4 +31,7 @@
     <string name="lorem_ipsum_large">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat consectetur leo quis vehicula. Sed diam ante, dapibus in condimentum eu, luctus eu justo. Vivamus justo erat, luctus ac odio id, imperdiet pellentesque nisl. Suspendisse potenti. Proin vehicula nisl lectus, et egestas nisi ullamcorper ac. Maecenas lacus mi, iaculis et diam vel, lacinia dignissim massa. Donec scelerisque ante odio, in semper felis placerat ultrices.</string>
     <string name="warning">Warning</string>
     <string name="uploading_recipe">Uploading your recipe!</string>
+    <string name="error_uploading_recipe">Error while uploading your recipe. Try again</string>
+    <string name="upload_completed">Upload completed. Find the resource in:</string>
+    <string name="error_image_upload">Error uploading images:</string>
 </resources>
