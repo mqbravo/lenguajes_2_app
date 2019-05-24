@@ -34,4 +34,9 @@
     <string name="error_uploading_recipe">Error while uploading your recipe. Try again</string>
     <string name="upload_completed">Upload completed. Find the resource in:</string>
     <string name="error_image_upload">Error uploading images:</string>
+    <string name="field_empty_message">Field can\'t be empty</string>
+    <string name="username_too_short">Username is too short!</string>
+    <string name="name_too_short">Name is too short!</string>
+    <string name="specify_further">Specify further</string>
+    <string name="no_images_uploaded">No images uploaded</string>
 </resources>
