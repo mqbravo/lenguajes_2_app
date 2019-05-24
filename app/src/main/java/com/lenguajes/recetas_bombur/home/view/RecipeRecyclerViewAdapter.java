@@ -60,13 +60,20 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         progressDrawable.setStrokeWidth(8f);
         progressDrawable.start();
 
-        //Load the image into the view
-        Glide.with(activity).load(recipe.getImageURL()).placeholder(progressDrawable).into(recipeViewHolder.imageCard);
+        //Load the first image into the view
+        Glide.with(activity).load(recipe.getImageURLs().get(0)).placeholder(progressDrawable).into(recipeViewHolder.imageCard);
 
 
         //When the card is clicked
         recipeViewHolder.imageCard.setOnClickListener(v -> {
             Intent intent = new Intent(activity, RecipeDetailActivity.class);
+
+            //Extras
+            intent.putExtra("name", recipe.getName());
+            intent.putExtra("preparation", recipe.getPreparation());
+            intent.putExtra("ingredients", ingredientsToString(recipe.getIngredients()));
+            intent.putStringArrayListExtra("urls", recipe.getImageURLs());
+
             activity.startActivity(intent);
         });
 
@@ -91,5 +98,19 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
             durationCard = itemView.findViewById(R.id.recipeCard_recipeDuration_Detail);
             typeCard = itemView.findViewById(R.id.recipeCard_recipeType_Detail);
         }
+    }
+
+
+    private String ingredientsToString(ArrayList<String> ingredients){
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i<ingredients.size(); i++){
+            builder.append("• ");
+            builder.append(ingredients.get(i));
+            builder.append('\n');
+        }
+
+        return builder.toString();
     }
 }

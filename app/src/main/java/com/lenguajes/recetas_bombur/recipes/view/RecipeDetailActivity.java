@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 public class RecipeDetailActivity extends AppCompatActivity {
 
     private RecyclerView mImagesRecyclerView;
+    private TextView mRecipeNameTextView;
+    private TextView mIngredientsTextView;
+    private TextView mPreparationTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ToolbarManager.setToolbar(this, "", true, R.id.toolbar);
 
         setUpImagesRecycler();
+
+        //Find views
+        mRecipeNameTextView = findViewById(R.id.recipeDetail_tittle);
+        mIngredientsTextView = findViewById(R.id.recipeDetail_ingredients);
+        mPreparationTextView = findViewById(R.id.recipeDetail_preparation);
+
+        //Set the texts
+        mRecipeNameTextView.setText(getIntent().getStringExtra("name"));
+        mIngredientsTextView.setText(getIntent().getStringExtra("ingredients"));
+        mPreparationTextView.setText(getIntent().getStringExtra("preparation"));
     }
 
     private void setUpImagesRecycler(){
@@ -40,7 +54,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mImagesRecyclerView.addItemDecoration(dividerItemDecoration);
 
         //Set its adapter by creating a new adapter from the CardView layout resource
-        ImageRecyclerViewAdapter imageAdapter = new ImageRecyclerViewAdapter(getImagesURLs(),
+        ImageRecyclerViewAdapter imageAdapter = new ImageRecyclerViewAdapter(getIntent().getStringArrayListExtra("urls"),
                 R.layout.medium_image_card_view, R.id.mediumImage_card, this);
 
 
@@ -48,12 +62,4 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<String> getImagesURLs() {
-        ArrayList<String> urls = new ArrayList<>();
-        urls.add("https://firebasestorage.googleapis.com/v0/b/recetas-bombur.appspot.com/o/test%2Fagridulce9.jpg?alt=media&token=8bde515d-f203-42c7-aadd-239576938440");
-        urls.add("https://firebasestorage.googleapis.com/v0/b/recetas-bombur.appspot.com/o/test%2Fcerdo-agridulce-salsa-soja.jpg?alt=media&token=78f2cc61-6195-48b1-9cf0-a848066d385f");
-        urls.add("https://firebasestorage.googleapis.com/v0/b/recetas-bombur.appspot.com/o/test%2FPollo-agridulce-2.jpg?alt=media&token=3879e80f-3119-4231-9e11-a74f4e7d29b0");
-
-        return urls;
-    }
 }

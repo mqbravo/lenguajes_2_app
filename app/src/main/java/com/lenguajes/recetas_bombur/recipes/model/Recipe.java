@@ -6,17 +6,17 @@ public class Recipe {
     private int durationMinutes;
     private String name;
     private String type;
-    private ArrayList<String> instructions;
+    private String preparation;
     private ArrayList<String> ingredients;
-    private String imageURL;
+    private ArrayList<String> imageURLs;
 
-    public Recipe(int durationMinutes, String name, String type, ArrayList<String> instructions, ArrayList<String> ingredients, String imageURL) {
+    public Recipe(int durationMinutes, String name, String type, String preparation, ArrayList<String> ingredients, ArrayList<String> imageURLs) {
         this.durationMinutes = durationMinutes;
         this.name = name;
         this.type = type;
-        this.instructions = instructions;
+        this.preparation = preparation;
         this.ingredients = ingredients;
-        this.imageURL = imageURL;
+        this.imageURLs = imageURLs;
     }
 
     public int getDurationMinutes() {
@@ -43,12 +43,12 @@ public class Recipe {
         this.type = type;
     }
 
-    public ArrayList<String> getInstructions() {
-        return instructions;
+    public String getPreparation() {
+        return preparation;
     }
 
-    public void setInstructions(ArrayList<String> instructions) {
-        this.instructions = instructions;
+    public void setpreparation(String preparation) {
+        this.preparation = preparation;
     }
 
     public ArrayList<String> getIngredients() {
@@ -59,11 +59,11 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public ArrayList<String> getImageURLs() {
+        return imageURLs;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURLs(ArrayList<String> imageURLs) {
+        this.imageURLs = imageURLs;
     }
 }
