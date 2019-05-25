@@ -152,6 +152,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
         if(validateInputs())
             createNewRecipe_aux();
 
+
+
     }
 
     public void addIngredient(View view) {
@@ -295,6 +297,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
     }
 
     private boolean validateInputs(){
-        return !(!isValidImages() | !isValidName() | isValidPreparation());
+        return !(!isValidImages() | !isValidName() | !isValidPreparation());
     }
 }

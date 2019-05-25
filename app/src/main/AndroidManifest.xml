@@ -14,19 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".recipes.view.ExpandedImageActivity"
-            android:parentActivityName=".recipes.view.RecipeDetailActivity"
-            >
+            android:name=".search.SearchActivity"
+            android:parentActivityName=".home.view.HomeActivity">
 
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.view.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".recipes.view.ExpandedImageActivity"
+            android:parentActivityName=".recipes.view.RecipeDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".recipes.view.RecipeDetailActivity" />
         </activity>
-
         <activity
             android:name=".recipes.view.RecipeDetailActivity"
-            android:parentActivityName=".home.view.HomeActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".home.view.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.view.HomeActivity" />

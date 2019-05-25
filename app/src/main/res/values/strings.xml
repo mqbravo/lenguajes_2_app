@@ -13,6 +13,7 @@
     <string name="name">Name</string>
     <string name="type">Type</string>
     <string name="ingredients">Ingredients</string>
+    <string name="ingredient">Ingredient</string>
     <string name="new_ingredient">New ingredient</string>
     <string name="add_ingredient">Add ingredient</string>
     <string name="preparation">Preparation</string>
@@ -39,4 +40,9 @@
     <string name="name_too_short">Name is too short!</string>
     <string name="specify_further">Specify further</string>
     <string name="no_images_uploaded">No images uploaded</string>
+    <string name="search">Search</string>
+    <string name="search_here">Your search here</string>
+    <string name="by_name">By name</string>
+    <string name="by_type">By type</string>
+    <string name="by_ingredient">By ingredient</string>
 </resources>

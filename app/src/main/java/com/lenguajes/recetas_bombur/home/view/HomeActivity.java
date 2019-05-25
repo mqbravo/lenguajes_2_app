@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.lenguajes.recetas_bombur.R;
@@ -13,6 +14,7 @@ import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.view.CreateRecipeActivity;
+import com.lenguajes.recetas_bombur.search.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -83,5 +85,20 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_toolbar_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home_search:
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+
+                return true;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
