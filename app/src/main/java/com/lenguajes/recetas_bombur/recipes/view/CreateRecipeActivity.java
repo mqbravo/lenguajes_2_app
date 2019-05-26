@@ -16,13 +16,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lenguajes.recetas_bombur.R;
-import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.activitymanagement.DialogManager;
 import com.lenguajes.recetas_bombur.activitymanagement.IntentUtils;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
@@ -39,10 +38,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private static final String TAG = "CreateRecipeActivityTAG";
     private static final int PICK_IMAGE_REQUEST = 1;
     private AlertDialog exitDialog;
-    private RecyclerView mImagesRecyclerView;
     private ArrayList<String> mImagesPaths;
+    private ArrayList<String> mIngredients;
     private ProgressDialog mUploadDialog;
     private float mCurrentUploadProgress = 0f;
+    RecyclerView mIngredientsRecyclerView;
     private TextInputLayout mName;
     private TextInputLayout mPreparation;
     private TextInputLayout mNewIngredient;
@@ -57,14 +57,17 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         //TODO This is not intended to be re-assigned on configuration changes
         this.mImagesPaths = new ArrayList<>();
-
+        this.mIngredients = new ArrayList<>();
 
         mName = findViewById(R.id.createRecipe_NameTextInputLayout);
         mPreparation = findViewById(R.id.createRecipe_preparationTextInputLayout);
         mNewIngredient = findViewById(R.id.createRecipe_NewIngredientTextInputLayout);
 
         setUpImagesRecycler();
+        setUpIngredientsRecycler();
 
+
+        //Set up the progress bar dialog
         mUploadDialog = new ProgressDialog(this);
         mUploadDialog.setCancelable(false);
         mUploadDialog.setTitle(getString(R.string.uploading_recipe));
@@ -73,7 +76,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
 
     private void setUpImagesRecycler(){
-        mImagesRecyclerView = findViewById(R.id.createRecipe_ImagesRecycler);
+        RecyclerView mImagesRecyclerView = findViewById(R.id.createRecipe_ImagesRecycler);
 
         //Adding the "format" or behaviour the recycler will have
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -87,6 +90,23 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
 
         mImagesRecyclerView.setAdapter(imageAdapter);
+
+    }
+
+    private void setUpIngredientsRecycler(){
+        mIngredientsRecyclerView = findViewById(R.id.createRecipe_IngredientsRecycler);
+
+        //Adding the "format" or behaviour the recycler will have
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        mIngredientsRecyclerView.setLayoutManager(linearLayoutManager);
+
+        //Set the custom adapter
+        CreateRecipeIngredientTextAdapter adapter = new CreateRecipeIngredientTextAdapter(mIngredients, R.layout.text_card_view
+                                                ,this);
+
+        mIngredientsRecyclerView.setAdapter(adapter);
 
     }
 
@@ -152,14 +172,18 @@ public class CreateRecipeActivity extends AppCompatActivity {
         if(validateInputs())
             createNewRecipe_aux();
 
-
-
     }
 
     public void addIngredient(View view) {
 
         if(isValidNewIngredient()) {
-            //TODO Add ingredient
+            EditText newIngredientEditText = mNewIngredient.getEditText();
+
+            mIngredients.add(newIngredientEditText.getText().toString());
+            newIngredientEditText.setText("");
+
+            mIngredientsRecyclerView.getAdapter().notifyItemInserted(mIngredients.size() - 1);
+            mIngredientsRecyclerView.scrollToPosition(mIngredients.size() - 1);
         }
     }
 

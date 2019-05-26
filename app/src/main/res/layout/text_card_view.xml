@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardBackgroundColor="@android:color/transparent"
+    card_view:cardElevation="0dp">
+
+
+    <TextView
+        android:id="@+id/textCard_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum"
+        android:textSize="@dimen/hint_text_size"
+        android:textColor="@color/appWhite"
+        android:layout_marginStart="@dimen/text_size_small"
+        android:layout_marginTop="@dimen/text_size_small"
+        />
+
+</android.support.v7.widget.CardView>
