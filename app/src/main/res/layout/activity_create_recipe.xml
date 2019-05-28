@@ -159,6 +159,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/hint_text_size"
                     android:hint="@string/new_ingredient"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
                     />
             </android.support.design.widget.TextInputLayout>
 

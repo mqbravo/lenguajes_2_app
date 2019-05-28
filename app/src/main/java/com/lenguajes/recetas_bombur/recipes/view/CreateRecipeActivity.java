@@ -14,9 +14,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -71,6 +74,15 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         mNewIngredient = findViewById(R.id.createRecipe_NewIngredientTextInputLayout);
         mType = findViewById(R.id.createRecipe_TypeTextInputLayout);
 
+
+        mNewIngredient.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                addIngredient_aux();
+                return true;
+            }
+
+            return false;
+        });
 
         //Set up recyclers
         setUpImagesRecycler();
@@ -181,6 +193,11 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
     //TODO delegate logic to the Interactor
     public void addIngredient(View view) {
 
+        addIngredient_aux();
+
+    }
+
+    private void addIngredient_aux(){
         if(isValidNewIngredient()) {
             EditText newIngredientEditText = mNewIngredient.getEditText();
 
