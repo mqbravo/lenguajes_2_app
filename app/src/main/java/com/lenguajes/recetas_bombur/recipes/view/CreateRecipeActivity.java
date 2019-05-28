@@ -19,19 +19,36 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.activitymanagement.DialogManager;
 import com.lenguajes.recetas_bombur.activitymanagement.IntentUtils;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.permissions.PermissionsManager;
+import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.utils.FirebaseUploadUtil;
 import com.lenguajes.recetas_bombur.utils.ImageUtil;
+import com.lenguajes.recetas_bombur.utils.JSONUtil;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
+
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateRecipeActivity extends AppCompatActivity {
 
@@ -42,8 +59,9 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private ArrayList<String> mIngredients;
     private ProgressDialog mUploadDialog;
     private float mCurrentUploadProgress = 0f;
-    RecyclerView mIngredientsRecyclerView;
+    private RecyclerView mIngredientsRecyclerView;
     private TextInputLayout mName;
+    private TextInputLayout mType;
     private TextInputLayout mPreparation;
     private TextInputLayout mNewIngredient;
 
@@ -62,6 +80,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
         mName = findViewById(R.id.createRecipe_NameTextInputLayout);
         mPreparation = findViewById(R.id.createRecipe_preparationTextInputLayout);
         mNewIngredient = findViewById(R.id.createRecipe_NewIngredientTextInputLayout);
+        mType = findViewById(R.id.createRecipe_TypeTextInputLayout);
 
         setUpImagesRecycler();
         setUpIngredientsRecycler();
@@ -168,10 +187,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     //TODO delegate logic to the Interactor
     public void createNewRecipe(View view) {
-
         if(validateInputs())
             createNewRecipe_aux();
-
     }
 
     public void addIngredient(View view) {
@@ -190,6 +207,41 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private void createNewRecipe_aux(){
         mUploadDialog.show();
 
+        String name = mName.getEditText().getText().toString();
+        String preparation = mPreparation.getEditText().getText().toString();
+        String type = mType.getEditText().getText().toString();
+
+        /*
+
+        //TODO hacer el campo para los minutos
+        Recipe recipe = new Recipe(50, name, type, preparation, mIngredients, null);
+
+        JSONObject jsonRecipe = JSONUtil.JSONObjectFromObject(recipe);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+
+
+        JSONObject jsonObject = new JSONObject();
+
+        String postURL = "http://pruebamau.herokuapp.com/";
+
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
+                null,
+
+                response -> {
+
+                },
+
+                error -> {
+
+                }
+
+        );
+                requestQueue.add(postRequest);
+
+        */
+
         for (String path : mImagesPaths) {
 
             //Create a bitmap from the image
@@ -206,6 +258,7 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
             setImageUploadTaskControls(uploadTask);
         }
+
     }
 
 
