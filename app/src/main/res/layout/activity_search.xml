@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".search.SearchActivity"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    android:background="@color/colorPrimaryDark">
+
+    <include layout="@layout/actionbar_toolbar_search"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical"
+        android:weightSum="10"
+        >
+
+        <RadioGroup
+            android:id="@+id/search_radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.2"
+            android:checkedButton="@id/search_radioBtnName"
+            >
+
+            <RadioButton
+                android:id="@+id/search_radioBtnName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appWhite"
+                android:textSize="@dimen/hint_text_size"
+                android:layout_margin="@dimen/margin_small"
+                android:text="@string/name"
+                android:onClick="checkSelection"/>
+
+            <RadioButton
+                android:id="@+id/search_radioBtnType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appWhite"
+                android:textSize="@dimen/hint_text_size"
+                android:layout_margin="@dimen/margin_small"
+                android:text="@string/type"/>
+
+            <RadioButton
+                android:id="@+id/search_radioIngredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/appWhite"
+                android:textSize="@dimen/hint_text_size"
+                android:layout_margin="@dimen/margin_small"
+                android:text="@string/ingredient"/>
+
+        </RadioGroup>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recipesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryAlpha"
+            android:layout_weight="9.8">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

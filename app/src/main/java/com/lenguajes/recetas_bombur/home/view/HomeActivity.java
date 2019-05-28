@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.lenguajes.recetas_bombur.R;
@@ -13,6 +14,7 @@ import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.view.CreateRecipeActivity;
+import com.lenguajes.recetas_bombur.search.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -51,10 +53,25 @@ public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<Recipe> getResults() {
         ArrayList<Recipe> recipes = new ArrayList<>();
+        ArrayList<String> ingredientsDummy = new ArrayList<>();
 
-        recipes.add(new Recipe(40, "Tacos al pastor", "Mexicana", null, null, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190130-tacos-al-pastor-horizontal-1-1549571422.png?crop=0.668xw:1.00xh;0.175xw,0&resize=768:*"));
-        recipes.add(new Recipe(20, "Pasta carbonara", "Italiana", null, null, "https://s3.amazonaws.com/finecooking.s3.tauntonclud.com/app/uploads/2017/04/18173701/051092056-01-spaghetti-carbonara-recipe-thumb16x9.jpg"));
-        recipes.add(new Recipe(40, "Pizza mozzarella", "Italiana", null, null, "https://www.laespanolaaceites.com/uploads/recetas/fotos/pizza-con-tomate-albahaca-y-mozzarella.jpg"));
+        ingredientsDummy.add("Dummy");
+        ingredientsDummy.add("ingredients");
+        ingredientsDummy.add("list");
+
+        ArrayList<String> recipe1 = new ArrayList<>();
+        ArrayList<String> recipe2 = new ArrayList<>();
+        ArrayList<String> recipe3 = new ArrayList<>();
+
+        recipe1.add("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190130-tacos-al-pastor-horizontal-1-1549571422.png?crop=0.668xw:1.00xh;0.175xw,0&resize=768:*");
+        recipe1.add("https://www.comedera.com/wp-content/uploads/2017/08/tacos-al-pastor-receta.jpg");
+        recipe1.add("https://cocina-casera.com/mx/wp-content/uploads/2018/06/tacoas-al-pastor-700x390.jpg");
+        recipe2.add("https://s3.amazonaws.com/finecooking.s3.tauntonclud.com/app/uploads/2017/04/18173701/051092056-01-spaghetti-carbonara-recipe-thumb16x9.jpg");
+        recipe3.add("https://www.laespanolaaceites.com/uploads/recetas/fotos/pizza-con-tomate-albahaca-y-mozzarella.jpg");
+
+        recipes.add(new Recipe(40, "Tacos al pastor", "Mexicana", "Lmaoo",ingredientsDummy ,recipe1));
+        recipes.add(new Recipe(20, "Pasta carbonara", "Italiana", "Lmaoo", ingredientsDummy ,recipe2));
+        recipes.add(new Recipe(40, "Pizza mozzarella", "Italiana", "Lmaoo", ingredientsDummy , recipe3));
 
         return recipes;
     }
@@ -68,5 +85,20 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_toolbar_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home_search:
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+
+                return true;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

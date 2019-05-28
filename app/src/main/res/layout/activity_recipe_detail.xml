@@ -84,8 +84,10 @@
                 >
 
                 <TextView
+                    android:id="@+id/recipeDetail_ingredients"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/appWhite"
                     android:text="@string/lorem_ipsum_large"/>
@@ -97,7 +99,7 @@
                 android:id="@+id/recipeDetail_preparationHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ingredients"
+                android:text="@string/preparation"
                 android:textSize="@dimen/hint_text_size"
                 android:layout_marginTop="@dimen/margin_large"
                 android:layout_marginStart="@dimen/margin_medium"
@@ -118,9 +120,11 @@
                 >
 
                 <TextView
+                    android:id="@+id/recipeDetail_preparation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_size_small"
+                    android:layout_margin="@dimen/margin_small"
                     android:textColor="@color/appWhite"
                     android:text="@string/lorem_ipsum_large"/>
 

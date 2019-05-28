@@ -51,9 +51,10 @@
                 android:id="@+id/createUser_NameTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite"
+                android:theme="@style/Theme.AppCompat"
                 android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginEnd="@dimen/margin_large"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="@+id/createUser_Name"
                 app:layout_constraintTop_toBottomOf="@+id/createUser_Name">
 
@@ -87,7 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginEnd="@dimen/margin_large"
-                android:theme="@style/EditTextWhite"
+                android:theme="@style/Theme.AppCompat"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="@+id/createUser_Email"
                 app:layout_constraintTop_toBottomOf="@+id/createUser_Email">
 
@@ -120,7 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginEnd="@dimen/margin_large"
-                android:theme="@style/EditTextWhite"
+                android:theme="@style/Theme.AppCompat"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="@+id/createUser_Username"
                 app:layout_constraintTop_toBottomOf="@+id/createUser_Username">
 
@@ -152,9 +155,10 @@
                 android:id="@+id/createUser_PasswordTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/EditTextWhite"
+                android:theme="@style/Theme.AppCompat"
                 android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginEnd="@dimen/margin_large"
+                app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/appWhite"
                 app:layout_constraintStart_toStartOf="@+id/createUser_Password"
@@ -199,6 +203,7 @@
                     android:textColor="@color/appWhite"
                     android:background="@color/lightGreen"
                     android:layout_weight="5"
+                    android:onClick="newUser"
                     />
 
             </LinearLayout>

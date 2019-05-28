@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "235196828418",
+    "firebase_url": "https://recetas-bombur.firebaseio.com",
+    "project_id": "recetas-bombur",
+    "storage_bucket": "recetas-bombur.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235196828418:android:8136bb04cd922a30",
+        "android_client_info": {
+          "package_name": "com.lenguajes.recetas_bombur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235196828418-v491pppjmqjrk70k9qsi1q4macl69edh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lenguajes.recetas_bombur",
+            "certificate_hash": "1c0a7ba59791bfe71eb7be1a77735ee99c249ac3"
+          }
+        },
+        {
+          "client_id": "235196828418-qlooskmor82ibj4upvr2hbd175m9cg6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnRGoXUt31hkJeJshJARNR95NkJu49mys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235196828418-qlooskmor82ibj4upvr2hbd175m9cg6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

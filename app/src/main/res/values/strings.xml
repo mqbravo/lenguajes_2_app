@@ -13,9 +13,10 @@
     <string name="name">Name</string>
     <string name="type">Type</string>
     <string name="ingredients">Ingredients</string>
+    <string name="ingredient">Ingredient</string>
     <string name="new_ingredient">New ingredient</string>
     <string name="add_ingredient">Add ingredient</string>
-    <string name="steps">Steps</string>
+    <string name="preparation">Preparation</string>
     <string name="images">Images</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
@@ -30,4 +31,18 @@
     <string name="user_cancel_prompt">Are you sure you want to cancel the user creation?</string>
     <string name="lorem_ipsum_large">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat consectetur leo quis vehicula. Sed diam ante, dapibus in condimentum eu, luctus eu justo. Vivamus justo erat, luctus ac odio id, imperdiet pellentesque nisl. Suspendisse potenti. Proin vehicula nisl lectus, et egestas nisi ullamcorper ac. Maecenas lacus mi, iaculis et diam vel, lacinia dignissim massa. Donec scelerisque ante odio, in semper felis placerat ultrices.</string>
     <string name="warning">Warning</string>
+    <string name="uploading_recipe">Uploading your recipe!</string>
+    <string name="error_uploading_recipe">Error while uploading your recipe. Try again</string>
+    <string name="upload_completed">Upload completed. Find the resource in:</string>
+    <string name="error_image_upload">Error uploading images:</string>
+    <string name="field_empty_message">Field can\'t be empty</string>
+    <string name="username_too_short">Username is too short!</string>
+    <string name="name_too_short">Name is too short!</string>
+    <string name="specify_further">Specify further</string>
+    <string name="no_images_uploaded">No images uploaded</string>
+    <string name="search">Search</string>
+    <string name="search_here">Your search here</string>
+    <string name="by_name">By name</string>
+    <string name="by_type">By type</string>
+    <string name="by_ingredient">By ingredient</string>
 </resources>
