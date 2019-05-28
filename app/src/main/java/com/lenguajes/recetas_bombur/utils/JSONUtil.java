@@ -9,11 +9,14 @@ import org.json.JSONObject;
 public class JSONUtil {
 
 
-    public static JSONObject JSONObjectFromObject(Object object){
+    public static String jsonStringFromObject(Object object){
 
         Gson gson = new Gson();
 
-        String jsonString = gson.toJson(object);
+        return gson.toJson(object);
+    }
+
+    public static JSONObject JSONObjectFromString(String jsonString){
 
         try {
             return new JSONObject(jsonString);

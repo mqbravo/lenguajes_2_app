@@ -136,28 +136,21 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
     private void postToAPI(String name, String type, String preparation, ArrayList<String> ingredients, int durationMinutes,
                            AppCompatActivity activity){
 
+        //Create recipe and Json from it
         Recipe recipe = new Recipe(durationMinutes, name, type, preparation, ingredients, mImageURLs);
 
-        JSONObject jsonRecipe = JSONUtil.JSONObjectFromObject(recipe);
+        String jsonString = JSONUtil.jsonStringFromObject(recipe);
+        JSONObject jsonRecipe = JSONUtil.JSONObjectFromString(jsonString);
 
-        Gson gson = new Gson();
+        //Log the generated Json string
+        Log.d(TAG, "To send: " + jsonString);
 
-        String jsonString = gson.toJson(recipe);
-
-        Log.d(TAG, jsonString);
-
-        presenter.updateUploadProgress(50);
-        finishUploadProcess();
-
-        /*
+        //Create the request to the API
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-
-        JSONObject jsonObject = new JSONObject();
-
         String postURL = "http://pruebamau.herokuapp.com/";
 
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
-                null,
+                jsonRecipe,
 
                 response -> {
                     presenter.updateUploadProgress(50);
@@ -165,13 +158,13 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
                 },
 
                 error -> {
-
+                    Log.d(TAG, error.getMessage());
                 }
 
         );
 
-
+        //Post the POST request
         requestQueue.add(postRequest);
-        */
+
     }
 }
