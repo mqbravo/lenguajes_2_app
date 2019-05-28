@@ -19,38 +19,25 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.activitymanagement.DialogManager;
 import com.lenguajes.recetas_bombur.activitymanagement.IntentUtils;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.permissions.PermissionsManager;
-import com.lenguajes.recetas_bombur.recipes.model.Recipe;
+
+import com.lenguajes.recetas_bombur.recipes.presenter.CreateRecipePresenter;
+import com.lenguajes.recetas_bombur.recipes.presenter.CreateRecipePresenterImpl;
 import com.lenguajes.recetas_bombur.utils.FirebaseUploadUtil;
 import com.lenguajes.recetas_bombur.utils.ImageUtil;
-import com.lenguajes.recetas_bombur.utils.JSONUtil;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
 
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class CreateRecipeActivity extends AppCompatActivity {
+public class CreateRecipeActivity extends AppCompatActivity implements CreateRecipeView{
 
     private static final String TAG = "CreateRecipeActivityTAG";
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -64,6 +51,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
     private TextInputLayout mType;
     private TextInputLayout mPreparation;
     private TextInputLayout mNewIngredient;
+
+    private CreateRecipePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +71,13 @@ public class CreateRecipeActivity extends AppCompatActivity {
         mNewIngredient = findViewById(R.id.createRecipe_NewIngredientTextInputLayout);
         mType = findViewById(R.id.createRecipe_TypeTextInputLayout);
 
+
+        //Set up recyclers
         setUpImagesRecycler();
         setUpIngredientsRecycler();
 
+        //Set up presenter
+        this.presenter = new CreateRecipePresenterImpl(this);
 
         //Set up the progress bar dialog
         mUploadDialog = new ProgressDialog(this);
@@ -186,11 +179,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
     }
 
     //TODO delegate logic to the Interactor
-    public void createNewRecipe(View view) {
-        if(validateInputs())
-            createNewRecipe_aux();
-    }
-
     public void addIngredient(View view) {
 
         if(isValidNewIngredient()) {
@@ -204,6 +192,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
         }
     }
 
+    public void createNewRecipe(View view) {
+        if(validateInputs())
+            createNewRecipe_aux();
+    }
+
     private void createNewRecipe_aux(){
         mUploadDialog.show();
 
@@ -211,102 +204,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
         String preparation = mPreparation.getEditText().getText().toString();
         String type = mType.getEditText().getText().toString();
 
-        /*
+        presenter.createNewRecipe(name, type, preparation, mIngredients, mImagesPaths, 0, this);
 
-        //TODO hacer el campo para los minutos
-        Recipe recipe = new Recipe(50, name, type, preparation, mIngredients, null);
-
-        JSONObject jsonRecipe = JSONUtil.JSONObjectFromObject(recipe);
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-
-
-        JSONObject jsonObject = new JSONObject();
-
-        String postURL = "http://pruebamau.herokuapp.com/";
-
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
-                null,
-
-                response -> {
-
-                },
-
-                error -> {
-
-                }
-
-        );
-                requestQueue.add(postRequest);
-
-        */
-
-        for (String path : mImagesPaths) {
-
-            //Create a bitmap from the image
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-
-            //Compress bitmap and store the image bytes
-            byte[] imageBytes = ImageUtil.getBytesFromBitmap(bitmap, Bitmap.CompressFormat.JPEG, 100);
-
-            //Get the name with the extension
-            String imageName = PathUtil.getFileNameFromPath(path, true);
-
-            //Begin the image upload
-            UploadTask uploadTask = FirebaseUploadUtil.uploadToFirebase("test", imageName, imageBytes);
-
-            setImageUploadTaskControls(uploadTask);
-        }
-
-    }
-
-
-    private void setImageUploadTaskControls(UploadTask uploadTask){
-        //The percentage each task takes, to get 100
-        float individualTaskPercentage = 100/(float)mImagesPaths.size();
-
-
-        //On progress
-        uploadTask.addOnProgressListener(this, taskSnapshot -> {
-            double taskProgress = taskSnapshot.getBytesTransferred() * 100 / (double) taskSnapshot.getTotalByteCount();
-            double percentageInTotal = taskProgress * individualTaskPercentage / 100;
-
-            mCurrentUploadProgress += percentageInTotal;
-
-            mUploadDialog.setProgress((int) mCurrentUploadProgress);
-        });
-
-
-        //On success
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-            Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-
-            result.addOnSuccessListener(uri -> {
-                String imageUrl = uri.toString();
-                Log.d(TAG, getString(R.string.upload_completed) + imageUrl);
-
-                //The last is finishing, subtract 0.1 to ensure is the last one
-                if(mCurrentUploadProgress >= 100f - 0.1f){
-                    mUploadDialog.dismiss();
-                    finish();
-                }
-            });
-
-        });
-
-
-        //On failure
-        uploadTask.addOnFailureListener(e -> {
-            Log.d(TAG, getString(R.string.error_image_upload) + e.getMessage());
-            mUploadDialog.dismiss();
-
-            //Set the progress to 0 again
-            mCurrentUploadProgress = 0f;
-            mUploadDialog.setProgress((int)mCurrentUploadProgress);
-
-            Toast.makeText(this, getString(R.string.error_uploading_recipe), Toast.LENGTH_LONG).show();
-        });
     }
 
 
@@ -375,5 +274,17 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     private boolean validateInputs(){
         return !(!isValidImages() | !isValidName() | !isValidPreparation());
+    }
+
+    @Override
+    public void updateUploadProgress(int newProgress) {
+        mCurrentUploadProgress += newProgress;
+        mUploadDialog.setProgress((int) mCurrentUploadProgress);
+    }
+
+    @Override
+    public void finishUploadProcess() {
+        mUploadDialog.dismiss();
+        finish();
     }
 }
