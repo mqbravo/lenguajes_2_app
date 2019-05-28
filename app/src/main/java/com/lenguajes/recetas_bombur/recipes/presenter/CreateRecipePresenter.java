@@ -15,4 +15,6 @@ public interface CreateRecipePresenter {
 
     void finishUploadProcess();
 
+    void sendErrorMessage();
+
 }

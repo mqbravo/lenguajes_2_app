@@ -39,5 +39,9 @@ public class CreateRecipePresenterImpl implements CreateRecipePresenter{
         view.finishUploadProcess();
     }
 
+    @Override
+    public void sendErrorMessage() {
+        view.showErrorMessage();
+    }
 
 }

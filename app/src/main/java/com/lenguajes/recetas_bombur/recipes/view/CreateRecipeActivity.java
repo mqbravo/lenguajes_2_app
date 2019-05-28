@@ -287,4 +287,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements CreateRec
         mUploadDialog.dismiss();
         finish();
     }
+
+    @Override
+    public void showErrorMessage() {
+        //Set the progress to 0 again
+        mCurrentUploadProgress = 0f;
+        mUploadDialog.setProgress((int)mCurrentUploadProgress);
+
+        Toast.makeText(this, getString(R.string.error_uploading_recipe), Toast.LENGTH_LONG).show();
+
+    }
 }

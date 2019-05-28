@@ -11,4 +11,8 @@ public interface CreateRecipeInteractor {
 
 
 
+    void sendErrorMessage();
+
+    void finishUploadProcess();
+
 }

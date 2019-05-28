@@ -5,4 +5,6 @@ public interface CreateRecipeView {
     void updateUploadProgress(int newProgress);
 
     void finishUploadProcess();
+
+    void showErrorMessage();
 }

@@ -1,16 +1,19 @@
 package com.lenguajes.recetas_bombur.recipes.interactor;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.presenter.CreateRecipePresenter;
@@ -26,9 +29,12 @@ import java.util.ArrayList;
 public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
     private CreateRecipePresenter presenter;
+    private ArrayList<String> mImageURLs;
+    private String TAG = "CreateRecipeInteractor";
 
     public CreateRecipeInteractorImpl(CreateRecipePresenter presenter) {
         this.presenter = presenter;
+        this.mImageURLs = new ArrayList<>();
     }
 
 
@@ -38,42 +44,22 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
 
         //First upload images
-        uploadImages(imagePaths, activity);
+        uploadImages(name, type, preparation, ingredients, imagePaths, durationMinutes, activity);
 
-        /*
-
-        //TODO hacer el campo para los minutos en la GUI
-        Recipe recipe = new Recipe(durationMinutes, name, type, preparation, ingredients, null);
-
-        JSONObject jsonRecipe = JSONUtil.JSONObjectFromObject(recipe);
-
-        RequestQueue requestQueue = Volley.newRequestQueue(activity);
-
-        */
-
-         /*
-        JSONObject jsonObject = new JSONObject();
-
-        String postURL = "http://pruebamau.herokuapp.com/";
-
-        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
-                null,
-
-                response -> {
-
-                },
-
-                error -> {
-
-                }
-
-        );
-                requestQueue.add(postRequest);
-
-        */
     }
 
-    private void uploadImages(ArrayList<String> paths, AppCompatActivity activity){
+    @Override
+    public void sendErrorMessage() {
+        presenter.sendErrorMessage();
+    }
+
+    @Override
+    public void finishUploadProcess() {
+        presenter.finishUploadProcess();
+    }
+
+    private void uploadImages(String name, String type, String preparation, ArrayList<String> ingredients,
+                                ArrayList<String> paths, int durationMinutes, AppCompatActivity activity){
 
         for (String path : paths) {
 
@@ -89,14 +75,17 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
             //Begin the image upload
             UploadTask uploadTask = FirebaseUploadUtil.uploadToFirebase("test", imageName, imageBytes);
 
-            setImageUploadTaskControls(uploadTask, paths.size(), activity);
+            setImageUploadTaskControls(uploadTask, name, type, preparation, ingredients, paths.size(),
+                                        durationMinutes, activity);
         }
     }
 
 
-    private void setImageUploadTaskControls(UploadTask uploadTask, int pathsSize, AppCompatActivity activity){
-        //The percentage each task takes, to get 100
-        float individualTaskPercentage = 100/(float)pathsSize;
+    private void setImageUploadTaskControls(UploadTask uploadTask, String name, String type, String preparation, ArrayList<String> ingredients,
+                                            int pathsSize,int durationMinutes, AppCompatActivity activity){
+
+        //The percentage each task takes, to get 50
+        float individualTaskPercentage = 50/(float) pathsSize;
 
 
         //On progress
@@ -115,10 +104,18 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
             Task<Uri> result = taskSnapshot.getMetadata().getReference().getDownloadUrl();
 
             result.addOnSuccessListener(uri -> {
+                //Add the download URL to the urls
                 String imageUrl = uri.toString();
+                mImageURLs.add(imageUrl);
 
-                //TODO Log this
-                //Log.d("XD", getString(R.string.upload_completed) + imageUrl);
+                //Log the upload event
+                //Log.d(TAG, Resources.getSystem().getString(R.string.upload_completed) + imageUrl);
+
+                //One image is uploaded, check if it's the last one
+                if (pathsSize == mImageURLs.size()){
+                    postToAPI(name, type, preparation, ingredients, durationMinutes, activity);
+                }
+
             });
 
         });
@@ -126,18 +123,55 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
         //On failure
         uploadTask.addOnFailureListener(e -> {
-            /*
-            Log.d(TAG, getString(R.string.error_image_upload) + e.getMessage());
-            mUploadDialog.dismiss();
 
-            //Set the progress to 0 again
-            mCurrentUploadProgress = 0f;
-            mUploadDialog.setProgress((int)mCurrentUploadProgress);
+            Log.d(TAG, Resources.getSystem().getString(R.string.error_image_upload) + e.getMessage());
 
-            Toast.makeText(this, getString(R.string.error_uploading_recipe), Toast.LENGTH_LONG).show();
 
-            */
+            sendErrorMessage();
+            finishUploadProcess();
+
         });
     }
 
+    private void postToAPI(String name, String type, String preparation, ArrayList<String> ingredients, int durationMinutes,
+                           AppCompatActivity activity){
+
+        Recipe recipe = new Recipe(durationMinutes, name, type, preparation, ingredients, mImageURLs);
+
+        JSONObject jsonRecipe = JSONUtil.JSONObjectFromObject(recipe);
+
+        Gson gson = new Gson();
+
+        String jsonString = gson.toJson(recipe);
+
+        Log.d(TAG, jsonString);
+
+        presenter.updateUploadProgress(50);
+        finishUploadProcess();
+
+        /*
+        RequestQueue requestQueue = Volley.newRequestQueue(activity);
+
+        JSONObject jsonObject = new JSONObject();
+
+        String postURL = "http://pruebamau.herokuapp.com/";
+
+        JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
+                null,
+
+                response -> {
+                    presenter.updateUploadProgress(50);
+                    finishUploadProcess();
+                },
+
+                error -> {
+
+                }
+
+        );
+
+
+        requestQueue.add(postRequest);
+        */
+    }
 }
