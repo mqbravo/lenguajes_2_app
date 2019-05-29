@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
@@ -40,9 +41,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         mRecipesRecyclerView = findViewById(R.id.home_recipesRecyclerView);
 
-        requestAllRecipesDownload();
-
         setRecipesRecyclerView();
+
+        requestAllRecipesDownload();
     }
 
     private void setRecipesRecyclerView(){
@@ -97,15 +98,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public void getAllRecipes(ArrayList<Recipe> recipes) {
         this.mRecipes = recipes;
 
-        //TODO Naive... por que antes si me funcionaba y ahora no???
-        //Set its adapter by creating a new adapter from the CardView layout resource
-        RecipeRecyclerViewAdapter recipeRecyclerViewAdapter = new RecipeRecyclerViewAdapter(mRecipes,
-                R.layout.recipe_card_view, this);
+        RecipeRecyclerViewAdapter recipeRecyclerViewAdapter = (RecipeRecyclerViewAdapter)mRecipesRecyclerView.getAdapter();
 
+        if (recipeRecyclerViewAdapter != null)
+            recipeRecyclerViewAdapter.setDataSet(recipes);
 
-        mRecipesRecyclerView.setAdapter(recipeRecyclerViewAdapter);
-
-
-        //TODO dismiss progressbar
     }
 }

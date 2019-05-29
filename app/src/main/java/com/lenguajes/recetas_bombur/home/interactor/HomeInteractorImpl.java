@@ -1,7 +1,6 @@
 package com.lenguajes.recetas_bombur.home.interactor;
 
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,7 +31,7 @@ public class HomeInteractorImpl implements HomeInteractor{
         JsonObjectRequest getAllRequest = new JsonObjectRequest(Request.Method.GET,
                 getURL, null,
 
-                response -> getAllRecipes(response),
+                this::getAllRecipes,
 
                 error -> {
                     //TODO send error message to GUI
@@ -53,31 +52,11 @@ public class HomeInteractorImpl implements HomeInteractor{
 
             for (int i =0; i<jsonRecipes.length(); i++){
                 //Get the i-th recipe
-                JSONObject recipe = jsonRecipes.getJSONObject(i);
+                JSONObject jsonRecipe = jsonRecipes.getJSONObject(i);
 
                 //Get the i-th recipe information
-                String name = recipe.getString("name");
-                String preparation = recipe.getString("preparation");
-                String type = recipe.getString("type");
-                JSONArray jsonIngredients = recipe.getJSONArray("ingredients");
-                JSONArray jsonURLs = recipe.getJSONArray("URLs");
+                Recipe newRecipe = Recipe.createRecipeFromJSONObject(jsonRecipe);
 
-
-                //Create the ingredients and URLs lists from the JSON arrays
-                ArrayList<String> ingredients = new ArrayList<>();
-                ArrayList<String> URLs = new ArrayList<>();
-
-
-                for(int j = 0; j<jsonIngredients.length(); j++)
-                    ingredients.add(jsonIngredients.getString(j));
-
-
-                for(int j = 0; j<jsonURLs.length(); j++)
-                    URLs.add(jsonURLs.getString(j));
-
-                Recipe newRecipe = new Recipe(0, name, type, preparation, ingredients, URLs);
-
-                Log.d("XDXD", newRecipe.toString());
 
                 //Add recipe object to the list
                 recipes.add(newRecipe);

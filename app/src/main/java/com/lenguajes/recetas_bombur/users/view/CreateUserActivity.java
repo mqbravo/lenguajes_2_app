@@ -62,6 +62,8 @@ public class CreateUserActivity extends AppCompatActivity {
                     Log.d("DBConnection.register",String.valueOf(response));
                     if(response==1){
                         Toast.makeText(getApplicationContext(),usernameGot+" successfully registered!",Toast.LENGTH_LONG).show();
+                        //TODO o mandar a la pagina de inicio
+                        finish();
                     }else if(response==0){
                         Toast.makeText(getApplicationContext(),"Username already exists",Toast.LENGTH_SHORT).show();
                     }else{

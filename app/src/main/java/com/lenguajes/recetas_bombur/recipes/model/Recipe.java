@@ -1,5 +1,9 @@
 package com.lenguajes.recetas_bombur.recipes.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Recipe {
@@ -70,5 +74,29 @@ public class Recipe {
     @Override
     public String toString() {
         return name + ", " + type;
+    }
+
+    public static Recipe createRecipeFromJSONObject(JSONObject json) throws JSONException {
+
+        String name = json.getString("name");
+        String preparation = json.getString("preparation");
+        String type = json.getString("type");
+        JSONArray jsonIngredients = json.getJSONArray("ingredients");
+        JSONArray jsonURLs = json.getJSONArray("URLs");
+
+
+        //Create the ingredients and URLs lists from the JSON arrays
+        ArrayList<String> ingredients = new ArrayList<>();
+        ArrayList<String> URLs = new ArrayList<>();
+
+
+        for(int j = 0; j<jsonIngredients.length(); j++)
+            ingredients.add(jsonIngredients.getString(j));
+
+
+        for(int j = 0; j<jsonURLs.length(); j++)
+            URLs.add(jsonURLs.getString(j));
+
+        return new Recipe(0, name, type, preparation, ingredients, URLs);
     }
 }

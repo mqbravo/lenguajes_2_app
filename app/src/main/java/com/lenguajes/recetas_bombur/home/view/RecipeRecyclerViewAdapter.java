@@ -101,6 +101,11 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     }
 
 
+    public void setDataSet(ArrayList<Recipe> recipes){
+        this.recipes = recipes;
+        notifyDataSetChanged();
+    }
+
     private String ingredientsToString(ArrayList<String> ingredients){
 
         StringBuilder builder = new StringBuilder();
