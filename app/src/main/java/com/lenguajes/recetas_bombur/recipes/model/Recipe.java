@@ -66,4 +66,9 @@ public class Recipe {
     public void setImageURLs(ArrayList<String> imageURLs) {
         this.imageURLs = imageURLs;
     }
+
+    @Override
+    public String toString() {
+        return name + ", " + type;
+    }
 }
