@@ -164,7 +164,7 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
         //Create the request to the API
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-        String postURL = "http://pruebamau.herokuapp.com/";
+        String postURL = "https://prolog-api.herokuapp.com/api/recetas";
 
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
                 validJsonRecipe,

@@ -1,5 +1,7 @@
 package com.lenguajes.recetas_bombur.recipes.model;
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,14 +104,32 @@ public class Recipe {
 
 
     public JSONObject createJSON(){
+
         JSONObject jsonRecipe = new JSONObject();
 
+        JSONArray jsonRecipeArray = new JSONArray();
+
+        JSONObject jsonName = new JSONObject();
+        JSONObject jsonType = new JSONObject();
+        JSONObject jsonIngredients = new JSONObject();
+        JSONObject jsonPreparation = new JSONObject();
+        JSONObject jsonURLS = new JSONObject();
+
         try {
-            jsonRecipe.put("name", name);
-            jsonRecipe.put("ingredients", getIngredientsAsString());
-            jsonRecipe.put("URLs", getURLsAsString());
-            jsonRecipe.put("type", type);
-            jsonRecipe.put("preparation", preparation);
+            jsonName.put("name", name);
+            jsonType.put("type", type);
+            jsonURLS.put("URLs", formatURLs());
+            jsonIngredients.put("ingredients", formatIngredients());
+            jsonPreparation.put("preparation", preparation);
+
+
+            jsonRecipeArray.put(jsonName);
+            jsonRecipeArray.put(jsonType);
+            jsonRecipeArray.put(jsonIngredients);
+            jsonRecipeArray.put(jsonPreparation);
+            jsonRecipeArray.put(jsonURLS);
+
+            jsonRecipe.put("recipe", jsonRecipeArray);
 
             return jsonRecipe;
 
@@ -117,33 +137,36 @@ public class Recipe {
             e.printStackTrace();
             return null;
         }
+
     }
 
-    private String getIngredientsAsString(){
-        StringBuilder builder = new StringBuilder();
+    private JSONArray formatIngredients(){
+        JSONArray jsonArray = new JSONArray();
 
         for(String ingredient : ingredients){
-            builder.append(ingredient);
-            builder.append('|');
+
+            String ingredientString = "|" + ingredient;
+
+            jsonArray.put(ingredientString);
+
         }
 
-        String ingredientsString = builder.toString();
-
-        return ingredientsString.substring(0, ingredientsString.length() - 1);
+        return jsonArray;
     }
 
-    private String getURLsAsString(){
+    private JSONArray formatURLs(){
 
-        StringBuilder builder = new StringBuilder();
+        JSONArray jsonArray = new JSONArray();
 
         for(String url : imageURLs){
-            builder.append(url);
-            builder.append('|');
+
+            String urlString = "|" + url;
+
+            jsonArray.put(urlString);
+
         }
 
-        String urlsString = builder.toString();
-
-        return urlsString.substring(0, urlsString.length() - 1);
+        return jsonArray;
     }
 
 }
