@@ -5,20 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenter;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenterImpl;
-import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.view.CreateRecipeActivity;
-import com.lenguajes.recetas_bombur.search.SearchActivity;
+import com.lenguajes.recetas_bombur.search.view.SearchActivity;
 
 import java.util.ArrayList;
 
