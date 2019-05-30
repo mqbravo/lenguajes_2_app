@@ -53,7 +53,6 @@ public class SearchInteractorImpl implements SeacrhInteractor {
     @Override
     public void sendResults(JSONObject json) {
 
-
         //presenter.showRecipes(new ArrayList<>());
     }
 

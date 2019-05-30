@@ -99,4 +99,51 @@ public class Recipe {
 
         return new Recipe(0, name, type, preparation, ingredients, URLs);
     }
+
+
+    public JSONObject createJSON(){
+        JSONObject jsonRecipe = new JSONObject();
+
+        try {
+            jsonRecipe.put("name", name);
+            jsonRecipe.put("ingredients", getIngredientsAsString());
+            jsonRecipe.put("URLs", getURLsAsString());
+            jsonRecipe.put("type", type);
+            jsonRecipe.put("preparation", preparation);
+
+            return jsonRecipe;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String getIngredientsAsString(){
+        StringBuilder builder = new StringBuilder();
+
+        for(String ingredient : ingredients){
+            builder.append(ingredient);
+            builder.append('|');
+        }
+
+        String ingredientsString = builder.toString();
+
+        return ingredientsString.substring(0, ingredientsString.length() - 1);
+    }
+
+    private String getURLsAsString(){
+
+        StringBuilder builder = new StringBuilder();
+
+        for(String url : imageURLs){
+            builder.append(url);
+            builder.append('|');
+        }
+
+        String urlsString = builder.toString();
+
+        return urlsString.substring(0, urlsString.length() - 1);
+    }
+
 }

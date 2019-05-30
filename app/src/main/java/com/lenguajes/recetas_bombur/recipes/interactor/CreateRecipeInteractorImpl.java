@@ -22,8 +22,10 @@ import com.lenguajes.recetas_bombur.utils.ImageUtil;
 import com.lenguajes.recetas_bombur.utils.JSONUtil;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
@@ -136,11 +138,26 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
     private void postToAPI(String name, String type, String preparation, ArrayList<String> ingredients, int durationMinutes,
                            AppCompatActivity activity){
 
+
+
         //Create recipe and Json from it
         Recipe recipe = new Recipe(durationMinutes, name, type, preparation, ingredients, mImageURLs);
 
+        //TODO Si se logra arreglar el problema con las listas del API, descomentar esto
+        /*
         String jsonString = JSONUtil.jsonStringFromObject(recipe);
         JSONObject jsonRecipe = JSONUtil.JSONObjectFromString(jsonString);
+
+        */
+
+
+        Log.d(TAG, mImageURLs.get(0));
+
+        JSONObject jsonRecipe = recipe.createJSON();
+
+        String jsonString = jsonRecipe.toString().replace("\\", "");
+
+        JSONObject validJsonRecipe = JSONUtil.JSONObjectFromString(jsonString);
 
         //Log the generated Json string
         Log.d(TAG, "To send: " + jsonString);
@@ -150,7 +167,7 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
         String postURL = "http://pruebamau.herokuapp.com/";
 
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
-                jsonRecipe,
+                validJsonRecipe,
 
                 response -> {
                     presenter.updateUploadProgress(50);
