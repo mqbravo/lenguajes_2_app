@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.RadioButton;
@@ -26,6 +27,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     private RadioButton mSelectedRadioBtn;
     private RecyclerView mRecipesRecyclerView;
     private TextView mSearchField;
+    private ArrayList<Recipe> mRecipes;
     private SearchPresenter presenter;
 
     @Override
@@ -50,6 +52,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         });
 
         this.presenter = new SearchPresenterImpl(this);
+        this.mRecipes = new ArrayList<>();
 
         setRecipesRecyclerView();
     }
@@ -64,12 +67,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         mRecipesRecyclerView.setLayoutManager(linearLayoutManager);
 
         //Set its adapter by creating a new adapter from the CardView layout resource
-        RecipeRecyclerViewAdapter recipeRecyclerViewAdapter = new RecipeRecyclerViewAdapter(new ArrayList<>(),
+        RecipeRecyclerViewAdapter recipeRecyclerViewAdapter = new RecipeRecyclerViewAdapter(mRecipes,
                 R.layout.recipe_card_view, this);
 
 
         mRecipesRecyclerView.setAdapter(recipeRecyclerViewAdapter);
     }
+
 
 
     public void checkSelection(View view) {
@@ -111,6 +115,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
     @Override
     public void showRecipes(ArrayList<Recipe> recipes) {
+        mRecipes = recipes;
+
+        setRecipesRecyclerView();
 
     }
 

@@ -12,6 +12,8 @@ import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.search.model.SearchBy;
 import com.lenguajes.recetas_bombur.search.presenter.SearchPresenter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -40,10 +42,20 @@ public class SearchInteractorImpl implements SeacrhInteractor {
         StringRequest myReq = new StringRequest(Request.Method.GET,
                 getURL,
 
-                response -> Log.d(TAG , "Searching by: " + paramName + ", search: " + search +", response: " + response),
+                response -> {
+                    Log.d(TAG , "Searching by: " + paramName + ", search: " + search +", response: " + response);
+                    try {
+                        sendResults(new JSONObject(response));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        //TODO error managing
+                    }
+                }
+                ,
 
                 error -> {
-
+                    //TODO error managing
                 });
 
         requestQueue.add(myReq);
@@ -53,7 +65,32 @@ public class SearchInteractorImpl implements SeacrhInteractor {
     @Override
     public void sendResults(JSONObject json) {
 
-        //presenter.showRecipes(new ArrayList<>());
+        try {
+
+            JSONArray jsonRecipes = json.getJSONArray("recipes");
+
+            ArrayList<Recipe> recipes = new ArrayList<>();
+
+            for (int i = 0; i < jsonRecipes.length(); i++) {
+                //Get the i-th recipe
+                JSONObject jsonRecipe = jsonRecipes.getJSONObject(i);
+
+                //Get the i-th recipe information
+                Recipe newRecipe = Recipe.createRecipeFromJSONObject(jsonRecipe);
+
+
+                //Add recipe object to the list
+                recipes.add(newRecipe);
+            }
+
+
+            presenter.showRecipes(recipes);
+        }
+
+        catch (JSONException e) {
+            //TODO send error message to GUI
+            e.printStackTrace();
+        }
     }
 
     private String getParamName(SearchBy searchBy) {

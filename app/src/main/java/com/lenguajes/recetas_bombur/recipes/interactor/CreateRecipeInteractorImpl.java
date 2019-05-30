@@ -155,21 +155,18 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
         JSONObject jsonRecipe = recipe.createJSON();
 
-        String jsonString = jsonRecipe.toString().replace("\\", "");
-
-        JSONObject validJsonRecipe = JSONUtil.JSONObjectFromString(jsonString);
-
         //Log the generated Json string
-        Log.d(TAG, "To send: " + jsonString);
+        Log.d(TAG, "To send: " + jsonRecipe.toString());
 
         //Create the request to the API
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-        String postURL = "https://prolog-api.herokuapp.com/api/recetas";
+        String postURL = "http://prolog-api.herokuapp.com/api/recetas";
 
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
-                validJsonRecipe,
+                jsonRecipe,
 
                 response -> {
+                    Log.d(TAG, response.toString());
                     presenter.updateUploadProgress(50);
                     finishUploadProcess();
                 },
