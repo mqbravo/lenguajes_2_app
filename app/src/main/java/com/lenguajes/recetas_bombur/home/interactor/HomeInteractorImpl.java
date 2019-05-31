@@ -24,7 +24,7 @@ public class HomeInteractorImpl implements HomeInteractor{
 
     @Override
     public void requestAllRecipesDownload(AppCompatActivity activity) {
-        String getURL = "http://pruebamau.herokuapp.com/all";
+        String getURL = "http://prolog-api.herokuapp.com/api/recetas/all";
 
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
 

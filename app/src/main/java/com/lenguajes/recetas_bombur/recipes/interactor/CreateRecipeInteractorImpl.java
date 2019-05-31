@@ -172,6 +172,7 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
                 },
 
                 error -> {
+                    error.printStackTrace();
                     Log.d(TAG, error.getMessage());
                 }
 

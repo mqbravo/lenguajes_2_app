@@ -118,9 +118,9 @@ public class Recipe {
         try {
             jsonName.put("name", name);
             jsonType.put("type", type);
-            jsonURLS.put("URLs", formatURLs());
+            jsonURLS.put("imageURLs", formatURLs());
+            jsonPreparation.put("preparation", formatPreparation());
             jsonIngredients.put("ingredients", formatIngredients());
-            jsonPreparation.put("preparation", preparation);
 
 
             jsonRecipeArray.put(jsonName);
@@ -138,6 +138,14 @@ public class Recipe {
             return null;
         }
 
+    }
+
+    private JSONArray formatPreparation() {
+        JSONArray jsonArray = new JSONArray();
+
+        jsonArray.put(preparation);
+
+        return jsonArray;
     }
 
     private JSONArray formatIngredients(){
