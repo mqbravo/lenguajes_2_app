@@ -153,7 +153,7 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
         Log.d(TAG, mImageURLs.get(0));
 
-        JSONObject jsonRecipe = recipe.createJSON();
+        JSONObject jsonRecipe = JSONUtil.JSONObjectFromString(recipe.formatForBackend());
 
         //Log the generated Json string
         Log.d(TAG, "To send: " + jsonRecipe.toString());

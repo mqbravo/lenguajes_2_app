@@ -104,32 +104,14 @@ public class Recipe {
 
 
     public JSONObject createJSON(){
-
         JSONObject jsonRecipe = new JSONObject();
 
-        JSONArray jsonRecipeArray = new JSONArray();
-
-        JSONObject jsonName = new JSONObject();
-        JSONObject jsonType = new JSONObject();
-        JSONObject jsonIngredients = new JSONObject();
-        JSONObject jsonPreparation = new JSONObject();
-        JSONObject jsonURLS = new JSONObject();
-
         try {
-            jsonName.put("name", name);
-            jsonType.put("type", type);
-            jsonURLS.put("imageURLs", formatURLs());
-            jsonPreparation.put("preparation", formatPreparation());
-            jsonIngredients.put("ingredients", formatIngredients());
-
-
-            jsonRecipeArray.put(jsonName);
-            jsonRecipeArray.put(jsonType);
-            jsonRecipeArray.put(jsonIngredients);
-            jsonRecipeArray.put(jsonPreparation);
-            jsonRecipeArray.put(jsonURLS);
-
-            jsonRecipe.put("recipe", jsonRecipeArray);
+            jsonRecipe.put("name", name);
+            jsonRecipe.put("ingredients", getIngredientsAsJSONArray());
+            jsonRecipe.put("imageURLs", getURLsAsJSONArray());
+            jsonRecipe.put("type", type);
+            jsonRecipe.put("preparation", preparation);
 
             return jsonRecipe;
 
@@ -137,44 +119,73 @@ public class Recipe {
             e.printStackTrace();
             return null;
         }
-
     }
 
-    private JSONArray formatPreparation() {
-        JSONArray jsonArray = new JSONArray();
+    private JSONArray getIngredientsAsJSONArray(){
+        JSONArray ingredientsArray = new JSONArray();
 
-        jsonArray.put(preparation);
+        for (String ingredient : ingredients)
+            ingredientsArray.put(ingredient);
 
-        return jsonArray;
+        return ingredientsArray;
     }
 
-    private JSONArray formatIngredients(){
-        JSONArray jsonArray = new JSONArray();
+    private JSONArray getURLsAsJSONArray(){
+        JSONArray urlsArray = new JSONArray();
+
+        for (String url : imageURLs)
+            urlsArray.put(url);
+
+        return urlsArray;
+    }
+
+
+    private String formatIngredients(){
+
+        StringBuilder builder = new StringBuilder();
 
         for(String ingredient : ingredients){
 
-            String ingredientString = "|" + ingredient;
-
-            jsonArray.put(ingredientString);
-
+            builder.append('"');
+            builder.append('|');
+            builder.append(ingredient);
+            builder.append('"');
+            builder.append(',');
         }
 
-        return jsonArray;
+        String formatted = builder.toString();
+
+        return formatted.substring(0, formatted.length()-1);
     }
 
-    private JSONArray formatURLs(){
+    private String formatURLs(){
 
-        JSONArray jsonArray = new JSONArray();
+        StringBuilder builder = new StringBuilder();
 
         for(String url : imageURLs){
 
-            String urlString = "|" + url;
-
-            jsonArray.put(urlString);
-
+            builder.append('"');
+            builder.append('|');
+            builder.append(url);
+            builder.append('"');
+            builder.append(',');
         }
 
-        return jsonArray;
+        String formatted = builder.toString();
+
+        return formatted.substring(0, formatted.length()-1);
+    }
+
+    public String formatForBackend(){
+
+            return "{\"recipe\":[\n" +
+                    "{\"name\":\"" + name + "\"},\n" +
+                    "{\"type\":\"" + type + "\"},\n" +
+                    "{\"preparation\":[\"" + preparation + "\"]},\n" +
+                    "{\"ingredients\":[" + formatIngredients() + "]},\n" +
+                    "{\"imageURLs\":[" + formatURLs() + "]}"
+                    +"]}";
+
     }
 
 }
