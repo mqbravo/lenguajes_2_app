@@ -1,29 +1,36 @@
 package com.lenguajes.recetas_bombur.users.view;
 
 import android.content.DialogInterface;
-
-import android.support.design.widget.TextInputLayout;
-
+import android.os.Bundle;
 import android.os.StrictMode;
-
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lenguajes.recetas_bombur.DBConnection.DBConnection;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.activitymanagement.DialogManager;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CreateUserActivity extends AppCompatActivity {
 
     private AlertDialog exitDialog;
+    private TextInputLayout mName;
+    private TextInputLayout mUsername;
+    private TextInputLayout mEmail;
+    private TextInputLayout mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,45 +41,60 @@ public class CreateUserActivity extends AppCompatActivity {
 
         Button createBtn = findViewById(R.id.createUser_CreateButton);
 
-        EditText nameET,emailET,usernameET,passwordET;
-        nameET = findViewById(R.id.createUser_NameTextInput);
-        emailET = findViewById(R.id.createUser_EmailTextInput);
-        usernameET = findViewById(R.id.createUser_UsernameTextInput);
-        passwordET = findViewById(R.id.createUser_PasswordTextInput);
+        mName = findViewById(R.id.createUser_NameTextInputLayout);
+        mEmail = findViewById(R.id.createUser_EmailTextInputLayout);
+        mUsername = findViewById(R.id.createUser_UsernameTextInputLayout);
+        mPassword = findViewById(R.id.createUser_PasswordTextInputLayout);
 
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nameGot,emailGot,usernameGot,passwordGot;
-                nameGot = nameET.getText().toString();
-                emailGot = emailET.getText().toString();
-                usernameGot = usernameET.getText().toString();
-                passwordGot= passwordET.getText().toString();
+        createBtn.setOnClickListener(v -> {
+            String nameGot,emailGot,usernameGot,passwordGot;
+            nameGot = mName.getEditText().getText().toString();
+            emailGot = mEmail.getEditText().getText().toString();
+            usernameGot = mUsername.getEditText().getText().toString();
+            passwordGot= mPassword.getEditText().getText().toString();
 
-                if(nameGot.equals("")|emailGot.equals("")|usernameGot.equals("")|passwordGot.equals("")){
-                    Toast.makeText(getApplicationContext(),"Fill the fields buddy",Toast.LENGTH_LONG);
-                }else{
-                    try{
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
-                        DBConnection con = new DBConnection();
-                        int response = con.register(nameGot,emailGot,usernameGot,passwordGot);
-                        con.close();
-                        Log.d("DBConnection.register",String.valueOf(response));
-                        if(response==1){
-                            Toast.makeText(getApplicationContext(),usernameGot+" successfully registered!",Toast.LENGTH_LONG).show();
-                        }else if(response==0){
-                            Toast.makeText(getApplicationContext(),"Username already exists",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(),"Connection problem",Toast.LENGTH_SHORT).show();
+            if(nameGot.equals("")|emailGot.equals("")|usernameGot.equals("")|passwordGot.equals("")){
+                Toast.makeText(getApplicationContext(),"Fill the fields buddy",Toast.LENGTH_LONG).show();
+            }else{
+                RequestQueue queue = Volley.newRequestQueue(this);
+                //URL hacia la app de Heroku
+                //String url = getApplicationContext().getResources().getString(R.string.url);
+                String url = RecetasBomburApplication.getURL();
+                //"Jsonify" del username y password
+                JSONObject payload = new JSONObject();
+                try {
+                    payload.put("username",usernameGot);
+                    payload.put("password",passwordGot);
+                    payload.put("name",nameGot);
+                    payload.put("email",emailGot);
+                    Log.d("Payload",payload.toString(2));
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url.concat("/register"), payload, response -> {
+                        try {
+                            if(response.getBoolean("response")){//Registro exitoso
+                                Toast.makeText(getApplicationContext(),usernameGot+" registered succesfully!",Toast.LENGTH_SHORT).show();
+                                finish();
+                            }else{//Registro fallido
+                                Toast.makeText(getApplicationContext(),usernameGot +" already exists.",Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException exception) {
+                            exception.printStackTrace();
+                            Log.d("Error", "Error @RegisterActivity/onCreate/onResponse");
                         }
-                    }catch(Exception e){
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),"No connection to internet.",Toast.LENGTH_SHORT);
-                    }
+                    }, error -> {
+                        error.printStackTrace();
+                        //Log.d("IP",this.get);
+                        Log.d("Error", "Error @LoginActivity/onCreate/ErrorListener");
+                    });
+                    Log.d("URL",jsonObjectRequest.getUrl());
+                    //Space for the request part
+                    queue.add(jsonObjectRequest);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"Error at serializing payload",Toast.LENGTH_LONG).show();
                 }
-
             }
+
         });
     }
 

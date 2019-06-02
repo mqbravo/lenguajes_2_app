@@ -16,12 +16,14 @@
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <EditText
+            android:id="@+id/search_searchField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_here"
             android:textColorHint="@color/colorPrimaryLight"
             android:textColor="@color/appWhite"
             android:inputType="text"
+            android:imeOptions="actionSearch"
             />
     </android.support.v7.widget.Toolbar>
 

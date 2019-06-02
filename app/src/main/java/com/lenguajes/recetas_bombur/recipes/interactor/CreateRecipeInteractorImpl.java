@@ -6,24 +6,21 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.presenter.CreateRecipePresenter;
 import com.lenguajes.recetas_bombur.utils.FirebaseUploadUtil;
 import com.lenguajes.recetas_bombur.utils.ImageUtil;
 import com.lenguajes.recetas_bombur.utils.JSONUtil;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
@@ -136,28 +133,41 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
     private void postToAPI(String name, String type, String preparation, ArrayList<String> ingredients, int durationMinutes,
                            AppCompatActivity activity){
 
+
+
         //Create recipe and Json from it
         Recipe recipe = new Recipe(durationMinutes, name, type, preparation, ingredients, mImageURLs);
 
+        //TODO Si se logra arreglar el problema con las listas del API, descomentar esto
+        /*
         String jsonString = JSONUtil.jsonStringFromObject(recipe);
         JSONObject jsonRecipe = JSONUtil.JSONObjectFromString(jsonString);
 
+        */
+
+
+        Log.d(TAG, mImageURLs.get(0));
+
+        JSONObject jsonRecipe = JSONUtil.JSONObjectFromString(recipe.formatForBackend());
+
         //Log the generated Json string
-        Log.d(TAG, "To send: " + jsonString);
+        Log.d(TAG, "To send: " + jsonRecipe.toString());
 
         //Create the request to the API
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-        String postURL = "http://pruebamau.herokuapp.com/";
+        String postURL = RecetasBomburApplication.getURL().concat("/api/recetas");
 
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
                 jsonRecipe,
 
                 response -> {
+                    Log.d(TAG, response.toString());
                     presenter.updateUploadProgress(50);
                     finishUploadProcess();
                 },
 
                 error -> {
+                    error.printStackTrace();
                     Log.d(TAG, error.getMessage());
                 }
 

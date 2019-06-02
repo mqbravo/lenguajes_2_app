@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.lenguajes.recetas_bombur.R;
@@ -60,6 +61,21 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         mImagesRecyclerView.setAdapter(imageAdapter);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

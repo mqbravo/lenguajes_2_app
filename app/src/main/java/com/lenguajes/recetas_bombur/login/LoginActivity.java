@@ -10,10 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lenguajes.recetas_bombur.DBConnection.DBConnection;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.home.view.HomeActivity;
 import com.lenguajes.recetas_bombur.users.view.CreateUserActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,29 +41,41 @@ public class LoginActivity extends AppCompatActivity {
             if(usernameGot.equals("") | passwordGot.equals("")){
                 Toast.makeText(getApplicationContext(),"Fill empty spaces first buddy.",Toast.LENGTH_LONG).show();
             }else{
-                try{
-                    /*Reference: https://stackoverflow.com/questions/54503286/connection-failed-with-psql-on-android-app-studio
-                    to solve a problem where I could connect database through NetBeans but couldn't in Android Studio
-                    without changing code.
-                */
+                RequestQueue queue = Volley.newRequestQueue(this);
+                //URL hacia la app de Heroku
+                //"Jsonify" del username y password
+                JSONObject payload = new JSONObject();
+                try {
+                    payload.put("username",usernameGot);
+                    payload.put("password",passwordGot);
+                    Log.d("Payload",payload.toString(2));
 
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
-                    DBConnection con = new DBConnection();
-                    int response = con.logIn(usernameGot,passwordGot);
-                    con.close();
-                    Log.d("DBConnection.logIn",String.valueOf(response));
-                    if(response==1){
-                        openHome(getCurrentFocus());
-                        Toast.makeText(getApplicationContext(),"Welcome back "+usernameGot+"!",Toast.LENGTH_SHORT);
-                    }else if(response==0){
-                        Toast.makeText(getApplicationContext(),"Wrong credentials",Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(),"Connection problem",Toast.LENGTH_SHORT).show();
-                    }
-                }catch(Exception e){
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, RecetasBomburApplication.getURL().concat("/login"), payload, response -> {
+                        try {
+                            String token = response.get("token").toString();
+                            if(token.equals("")){
+                                Toast.makeText(getApplicationContext(), "Wrong credentials " + token, Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Token: " + token, Toast.LENGTH_LONG).show();
+                                RecetasBomburApplication.setSessionToken(token);
+                                openHome(getCurrentFocus());
+                            }
+
+                        } catch (JSONException exception) {
+                            exception.printStackTrace();
+                            Log.d("Error", "Error @LoginActivity/onCreate/onResponse");
+                        }
+                    }, error -> {
+                        error.printStackTrace();
+                        //Log.d("IP",this.get);
+                        Log.d("Error", "Error @LoginActivity/onCreate/ErrorListener");
+                    });
+                    Log.d("URL",jsonObjectRequest.getUrl());
+                    //Space for the request part
+                    queue.add(jsonObjectRequest);
+                } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"No connection to internet.",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"Error at serializing payload",Toast.LENGTH_LONG).show();
                 }
             }
         });
