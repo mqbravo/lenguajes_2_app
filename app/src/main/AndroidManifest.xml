@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lenguajes.recetas_bombur">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,16 +10,30 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+<<<<<<< Updated upstream
         android:name=".RecetasBomburApplication"
+=======
+        android:usesCleartextTraffic="true"
+>>>>>>> Stashed changes
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+<<<<<<< Updated upstream
         android:usesCleartextTraffic="true">
         <activity
             android:name=".search.SearchActivity"
+=======
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".recipes.view.RecipeDetailActivity"
+>>>>>>> Stashed changes
             android:parentActivityName=".home.view.HomeActivity">
 
             <meta-data
