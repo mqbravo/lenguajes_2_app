@@ -24,7 +24,8 @@ import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 public class CreateUserActivity extends AppCompatActivity {
 
     private AlertDialog exitDialog;
-
+    private EditText nameET,emailET,usernameET,passwordET;
+    private TextInputLayout mName,mPassword,mUsername,mEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
         Button createBtn = findViewById(R.id.createUser_CreateButton);
 
-        EditText nameET,emailET,usernameET,passwordET;
+
         nameET = findViewById(R.id.createUser_NameTextInput);
         emailET = findViewById(R.id.createUser_EmailTextInput);
         usernameET = findViewById(R.id.createUser_UsernameTextInput);
