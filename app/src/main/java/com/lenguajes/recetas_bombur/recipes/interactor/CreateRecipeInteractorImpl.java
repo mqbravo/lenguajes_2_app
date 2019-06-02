@@ -6,26 +6,21 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.presenter.CreateRecipePresenter;
 import com.lenguajes.recetas_bombur.utils.FirebaseUploadUtil;
 import com.lenguajes.recetas_bombur.utils.ImageUtil;
 import com.lenguajes.recetas_bombur.utils.JSONUtil;
 import com.lenguajes.recetas_bombur.utils.PathUtil;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URL;
 import java.util.ArrayList;
 
 public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
@@ -160,7 +155,7 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
         //Create the request to the API
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-        String postURL = "http://prolog-api.herokuapp.com/api/recetas";
+        String postURL = RecetasBomburApplication.getURL().concat("/api/recetas");
 
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
                 jsonRecipe,

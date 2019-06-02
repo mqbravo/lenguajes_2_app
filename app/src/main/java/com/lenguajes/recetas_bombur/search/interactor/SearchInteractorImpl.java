@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.search.model.SearchBy;
 import com.lenguajes.recetas_bombur.search.presenter.SearchPresenter;
@@ -34,11 +35,9 @@ public class SearchInteractorImpl implements SeacrhInteractor {
 
         String paramName = getParamName(searchBy);
 
-        String getURL = "https://prolog-api.herokuapp.com/api/recetas?" + paramName + "=" + search;
+        String getURL = RecetasBomburApplication.getURL() +"/api/recetas?" + paramName + "=" + search;
 
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-
-
         StringRequest myReq = new StringRequest(Request.Method.GET,
                 getURL,
 

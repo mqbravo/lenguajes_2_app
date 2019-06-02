@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenter;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 
@@ -24,7 +25,7 @@ public class HomeInteractorImpl implements HomeInteractor{
 
     @Override
     public void requestAllRecipesDownload(AppCompatActivity activity) {
-        String getURL = "http://prolog-api.herokuapp.com/api/recetas/all";
+        String getURL = RecetasBomburApplication.getURL().concat("/api/recetas/all");
 
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
 
