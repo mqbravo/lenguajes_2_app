@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.home.view.HomeActivity;
 import com.lenguajes.recetas_bombur.users.view.CreateUserActivity;
 import org.json.JSONException;
@@ -52,8 +53,10 @@ public class LoginActivity extends AppCompatActivity {
                             String token = response.get("token").toString();
                             if(token.equals("")){
                                 Toast.makeText(getApplicationContext(), "Wrong credentials " + token, Toast.LENGTH_SHORT).show();
+
                             }else{
                                 Toast.makeText(getApplicationContext(), "Token: " + token, Toast.LENGTH_LONG).show();
+                                RecetasBomburApplication.setCurrentToken(token);
                                 openHome(getCurrentFocus());
                             }
 

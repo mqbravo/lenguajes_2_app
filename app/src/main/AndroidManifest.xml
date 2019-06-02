@@ -4,28 +4,15 @@
     package="com.lenguajes.recetas_bombur">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-<<<<<<< Updated upstream
-        android:name=".RecetasBomburApplication"
-=======
         android:usesCleartextTraffic="true"
->>>>>>> Stashed changes
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-<<<<<<< Updated upstream
-        android:usesCleartextTraffic="true">
-        <activity
-            android:name=".search.SearchActivity"
-=======
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <uses-library
@@ -33,29 +20,12 @@
             android:required="false" />
 
         <activity android:name=".recipes.view.RecipeDetailActivity"
->>>>>>> Stashed changes
-            android:parentActivityName=".home.view.HomeActivity">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.view.HomeActivity" />
-        </activity>
-
-        <activity
-            android:name=".recipes.view.ExpandedImageActivity"
-            android:parentActivityName=".recipes.view.RecipeDetailActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".recipes.view.RecipeDetailActivity" />
-        </activity>
-        <activity
-            android:name=".recipes.view.RecipeDetailActivity"
-            android:launchMode="singleTop"
             android:parentActivityName=".home.view.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.view.HomeActivity" />
         </activity>
+
         <activity
             android:name=".users.view.CreateUserActivity"
             android:parentActivityName=".login.LoginActivity">
@@ -63,6 +33,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".login.LoginActivity" />
         </activity>
+
         <activity
             android:name=".recipes.view.CreateRecipeActivity"
             android:parentActivityName=".home.view.HomeActivity">
@@ -70,9 +41,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.view.HomeActivity" />
         </activity>
+
         <activity
             android:name=".home.view.HomeActivity"
             android:launchMode="singleTop" />
+
         <activity
             android:name=".login.LoginActivity"
             android:launchMode="singleTop">
