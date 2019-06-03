@@ -6,6 +6,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class RecetasBomburApplication extends Application {
     public static String sessionToken="";
+    public static String sessionUsername="";
     public static String url;
     @Override
     public void onCreate() {
@@ -27,5 +28,13 @@ public class RecetasBomburApplication extends Application {
 
     public static String getURL(){
         return url;
+    }
+
+    public static String getSessionUsername() {
+        return sessionUsername;
+    }
+
+    public static void setSessionUsername(String sessionUsername) {
+        RecetasBomburApplication.sessionUsername = sessionUsername;
     }
 }

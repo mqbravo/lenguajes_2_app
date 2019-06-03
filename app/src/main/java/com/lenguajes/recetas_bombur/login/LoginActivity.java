@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                             }else{
                                 Toast.makeText(getApplicationContext(), "Token: " + token, Toast.LENGTH_LONG).show();
                                 RecetasBomburApplication.setSessionToken(token);
+                                RecetasBomburApplication.setSessionUsername(usernameGot);
                                 openHome(getCurrentFocus());
                             }
 

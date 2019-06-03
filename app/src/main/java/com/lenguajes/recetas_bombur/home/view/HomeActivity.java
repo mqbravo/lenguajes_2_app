@@ -13,6 +13,7 @@ import com.lenguajes.recetas_bombur.R;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenter;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenterImpl;
+import com.lenguajes.recetas_bombur.login.LoginActivity;
 import com.lenguajes.recetas_bombur.recipes.model.Recipe;
 import com.lenguajes.recetas_bombur.recipes.view.CreateRecipeActivity;
 import com.lenguajes.recetas_bombur.search.view.SearchActivity;
@@ -99,6 +100,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         if (recipeRecyclerViewAdapter != null)
             recipeRecyclerViewAdapter.setDataSet(recipes);
-
     }
+
+    public void openLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 }
