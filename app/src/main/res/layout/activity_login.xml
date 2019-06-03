@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/hint_text_size"
             android:hint="@string/username"
+            android:inputType="text"
             />
 
     </android.support.design.widget.TextInputLayout>
