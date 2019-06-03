@@ -24,13 +24,15 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private EditText usernameET;
+    private EditText passwordET;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         Button loginBtn = findViewById(R.id.login_LoginButton);
-        EditText usernameET,passwordET;
         usernameET = findViewById(R.id.login_UsernameTextInput);
         passwordET = findViewById(R.id.login_PasswordTextInput);
         loginBtn.setOnClickListener(v -> {
@@ -79,6 +81,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        //Each time the login is no longer visible, reset the fields
+        usernameET.setText("");
+        passwordET.setText("");
+
 
     }
 

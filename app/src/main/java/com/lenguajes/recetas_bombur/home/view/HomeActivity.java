@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.lenguajes.recetas_bombur.R;
+import com.lenguajes.recetas_bombur.RecetasBomburApplication;
 import com.lenguajes.recetas_bombur.activitymanagement.ToolbarManager;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenter;
 import com.lenguajes.recetas_bombur.home.presenter.HomePresenterImpl;
@@ -77,6 +78,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             case R.id.home_search:
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
+
+                return true;
+
+            case R.id.home_log_out:
+                //TODO
+                RecetasBomburApplication.setSessionToken("");
+                finish();
 
                 return true;
 
