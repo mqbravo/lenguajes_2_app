@@ -25,7 +25,7 @@ public class HomeInteractorImpl implements HomeInteractor{
 
     @Override
     public void requestAllRecipesDownload(AppCompatActivity activity) {
-        String getURL = RecetasBomburApplication.getURL().concat("/api/recetas/all");
+        String getURL = RecetasBomburApplication.getURL().concat("/api/recetas/all?username="+RecetasBomburApplication.getSessionUsername()+"&token="+RecetasBomburApplication.getSessionToken());
 
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
 

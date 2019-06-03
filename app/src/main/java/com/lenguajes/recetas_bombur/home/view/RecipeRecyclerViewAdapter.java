@@ -50,7 +50,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         String duration = recipe.getDurationMinutes() + " mins";
 
         //Sets the view holder info from the current recipe
-        recipeViewHolder.durationCard.setText(duration);
+        //recipeViewHolder.durationCard.setText(duration);
         recipeViewHolder.nameCard.setText(recipe.getName());
         recipeViewHolder.typeCard.setText(recipe.getType());
 
@@ -88,14 +88,14 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         private ImageView imageCard;
         private TextView nameCard;
-        private TextView durationCard;
+        //private TextView durationCard;
         private TextView typeCard;
 
         RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
             imageCard = itemView.findViewById(R.id.recipeCard_image);
             nameCard = itemView.findViewById(R.id.recipeCard_recipeName);
-            durationCard = itemView.findViewById(R.id.recipeCard_recipeDuration_Detail);
+            //durationCard = itemView.findViewById(R.id.recipeCard_recipeDuration_Detail);
             typeCard = itemView.findViewById(R.id.recipeCard_recipeType_Detail);
         }
     }

@@ -155,8 +155,8 @@ public class CreateRecipeInteractorImpl implements CreateRecipeInteractor {
 
         //Create the request to the API
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
-        String postURL = RecetasBomburApplication.getURL().concat("/api/recetas");
-
+        String postURL = RecetasBomburApplication.getURL().concat("/api/recetas?username="+RecetasBomburApplication.getSessionUsername()+"&token="+RecetasBomburApplication.getSessionToken());
+        Log.d("URL",postURL);
         JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, postURL,
                 jsonRecipe,
 

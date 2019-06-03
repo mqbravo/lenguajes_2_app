@@ -34,18 +34,20 @@ public class SearchInteractorImpl implements SeacrhInteractor {
     public void requestSearchRecipes(SearchBy searchBy, String search, AppCompatActivity activity) {
 
         String paramName = getParamName(searchBy);
-
-        String getURL = RecetasBomburApplication.getURL() +"/api/recetas?" + paramName + "=" + search;
+        String username = RecetasBomburApplication.getSessionUsername();
+        String token = RecetasBomburApplication.getSessionToken();
+        String getURL = RecetasBomburApplication.getURL() +"/api/recetas?" + paramName + "=" + search+"&username="+RecetasBomburApplication.getSessionUsername()+"&token="+RecetasBomburApplication.getSessionToken();
 
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
         StringRequest myReq = new StringRequest(Request.Method.GET,
                 getURL,
 
                 response -> {
+
                     Log.d(TAG , "Searching by: " + paramName + ", search: " + search +", response: " + response);
+                    Log.d("ENDPOINT:",getURL);
                     try {
                         sendResults(new JSONObject(response));
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                         //TODO error managing
@@ -65,18 +67,16 @@ public class SearchInteractorImpl implements SeacrhInteractor {
     public void sendResults(JSONObject json) {
 
         try {
-
             JSONArray jsonRecipes = json.getJSONArray("recipes");
 
             ArrayList<Recipe> recipes = new ArrayList<>();
 
-            for (int i = 0; i < jsonRecipes.length(); i++) {
+            for (int i = 0; i < jsonRecipes.length(); i++){
                 //Get the i-th recipe
                 JSONObject jsonRecipe = jsonRecipes.getJSONObject(i);
 
                 //Get the i-th recipe information
                 Recipe newRecipe = Recipe.createRecipeFromJSONObject(jsonRecipe);
-
 
                 //Add recipe object to the list
                 recipes.add(newRecipe);

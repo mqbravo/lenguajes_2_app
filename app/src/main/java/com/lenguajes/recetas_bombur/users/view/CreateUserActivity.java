@@ -94,7 +94,6 @@ public class CreateUserActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Error at serializing payload",Toast.LENGTH_LONG).show();
                 }
             }
-
         });
     }
 
@@ -104,7 +103,6 @@ public class CreateUserActivity extends AppCompatActivity {
                 (DialogInterface dialog, int which) -> dialog.dismiss(),
                 getString(R.string.warning),
                 getString(R.string.user_cancel_prompt));
-
     }
 
     @Override
