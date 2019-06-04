@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Recetas_Bombur</string>
-    <string name="bomburRecipes">recetasbombur.herokuapp.com</string>
+    <string name="bomburRecipes">http://www.recetasbombur.info</string>
     <string name="fengHerokuServer">https://tranquil-shore-79680.herokuapp.com</string>
     <string name="lorem_ipsum">Lorem ipsum</string>
     <string name="food_type">Food type: </string>

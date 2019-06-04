@@ -11,7 +11,7 @@ public class RecetasBomburApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        url = getApplicationContext().getResources().getString(R.string.fengHerokuServer);
+        url = getApplicationContext().getResources().getString(R.string.bomburRecipes);
     }
 
     public static StorageReference getStorageReference(){
