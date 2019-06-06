@@ -110,9 +110,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             recipeRecyclerViewAdapter.setDataSet(recipes);
     }
 
-    public void openLogin(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 
+    public void refresh(View view) {
+        requestAllRecipesDownload();
+    }
 }
